@@ -1,0 +1,17 @@
+@import 'reset.css';
+
+:root {
+
+}
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+  font-family: Helvetica, arial, sans-serif;
+  color: var(--dark-blue);
+}
+
+*, *:before, *:after { /* stylelint-disable-line */
+  box-sizing: inherit;
+}
+
