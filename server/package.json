@@ -1,0 +1,15 @@
+{
+  "name": "io-server",
+  "version": "1.0.0",
+  "description": "socket-io server",
+  "main": "server.js",
+  "author": "Jens Van Steen & Nicolas Nuytten",
+  "license": "MIT",
+  "scripts": {
+    "start": "PORT=8085 node server.js"
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "socket.io": "^2.1.1"
+  }
+}

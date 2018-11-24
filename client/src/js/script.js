@@ -1,20 +1,61 @@
-// import Sea from './classes/Sea.js';
-// import Sky from './classes/Sky.js';
-// import AirPlane from './classes/Airplane.js';
+import '../css/style.css';
+import * as THREE from 'three';
+import Sea from './classes/Sea';
+import io from 'socket.io-client';
 
 {
-
   let scene, WIDTH, HEIGHT,
-    camera, fieldOfView, aspectRatio, nPlane, fPlane, renderer, container;
+    camera, fieldOfView, aspectRatio, nPlane, fPlane, renderer, container, sea;
 
   let hemisphereLight, shadowLight;
+
+  let controllerId;
+  let controller;
+  let socket;
 
 
   const init = () => {
     createScene();
+    createSea();
     createLight();
-
+    connect();
     loop();
+  };
+
+
+  const connect = () => {
+    socket = io.connect('http://localhost:8085');
+  
+    socket.on(`connectionUrl`, connectionUrl => {
+    //   createQRCode();  
+      console.log(`hello socket: ${connectionUrl} with id: ${socket.id}`);
+    });
+  
+    socket.on(`update`, data => {
+      console.log(`data from socket: ${data}`);
+  
+    });
+  
+    socket.on(`connectiontest`, data => {
+      controllerId = data;
+      socket.emit(`connectiontest2`, controllerId, 'het werkt');
+    });
+  
+  };
+  
+  const subscrideOnUpdate = () => {
+    socket.on(`update`, data => {
+      console.log('check');
+    });
+  };
+
+  const createSea = () => {
+    sea = new Sea();
+    sea.mesh.position.y = - 600;
+    sea.mesh.position.x = 0;
+    scene.add(sea.mesh);
+
+    window.sea = sea;
   };
 
 
@@ -25,10 +66,10 @@
     shadowLight.position.set(150, 350, 350);
 
     shadowLight.castShadow = true;
-    shadowLight.shadow.camera.left = -400;
+    shadowLight.shadow.camera.left = - 400;
     shadowLight.shadow.camera.right = 400;
     shadowLight.shadow.camera.top = 400;
-    shadowLight.shadow.camera.bottom = -400;
+    shadowLight.shadow.camera.bottom = - 400;
     shadowLight.shadow.camera.near = 1;
     shadowLight.shadow.camera.far = 1000;
     shadowLight.shadow.mapSize.width = 2048;
@@ -56,6 +97,11 @@
     camera.position.x = 0;
     camera.position.y = 100;
     camera.position.z = 200;
+
+    const geometry = new THREE.BoxGeometry(1, 1, 1);
+    const material = new THREE.MeshBasicMaterial({color: 0x00ff00});
+    const cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
 
     renderer = new THREE.WebGLRenderer({
       alpha: true,
