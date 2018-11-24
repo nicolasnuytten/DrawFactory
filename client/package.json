@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "production": "rm -rf dist/ && webpack --mode production",
-    "dev": "webpack-dev-server --mode development --open 'Google Chrome' ",
+    "dev": "webpack-dev-server --host 0.0.0.0 --mode development --open 'Google Chrome' ",
     "copydist": "ditto ./src/ ./dist/ && rm -rf ./dist/css && rm -rf ./dist/js",
     "clean": "rm -rf ./dist"
   },

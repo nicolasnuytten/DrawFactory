@@ -28,7 +28,7 @@ import io from 'socket.io-client';
   
     socket.on(`connectionUrl`, connectionUrl => {
     //   createQRCode();  
-      console.log(`hello socket: ${connectionUrl} with id: ${socket.id}`);
+      console.log(`hello socket: ${connectionUrl}/controller.html?id=${socket.id}`);
     });
   
     socket.on(`update`, data => {

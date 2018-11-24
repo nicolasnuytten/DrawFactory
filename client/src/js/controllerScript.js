@@ -1,10 +1,44 @@
 import '../css/style.css';
 import io from 'socket.io-client';
 
-
 let socket, targetId;
+let lastControllerX, lastControllerY;
+let fingerPos = {x:0, y:0};
+let lastFingerPos = fingerPos;
+let drawing = false;
+
+const ctx = document.querySelector('#canvas').getContext('2d');
+
+const handelMouseMove = (x,y) => {
+  console.log(x,y);
+  draw(x,y);
+}
+
+const draw = (x,y) => {
+  fingerPos =  {x, y}
+  ctx.beginPath();
+  ctx.strokeStyle = `black`;
+  ctx.lineWidth = 4;
+  ctx.lineJoin = "round";
+  ctx.moveTo(x, y);
+  ctx.lineTo(lastFingerPos.x, lastFingerPos.y);
+  ctx.closePath();
+  ctx.stroke();
+
+  lastFingerPos = {x, y}; 
+}
+
+
+// socket.emit(`update`, targetId, {
+//   x: e.touches[0].clientX / window.innerWidth,
+//   y: e.touches[0].clientY / window.innerHeight
+// });
 
 const init = () => {
+  lastControllerX = 0;
+  lastControllerY = 0;
+  ctx.canvas.width = window.innerWidth;
+  ctx.canvas.height= window.innerHeight;
   console.log('hello mobile');
   targetId = getUrlParameter(`id`);
   if (!targetId) {
@@ -12,24 +46,24 @@ const init = () => {
     return;
   }
   connect();
-  window.addEventListener(`mousemove`, e => {
-    socket.emit(`update`, targetId, {
-      x: e.clientX / window.innerWidth,
-      y: e.clientY / window.innerHeight
-    });
-});
-  window.addEventListener(`touchmove`, e => {
-    socket.emit(`update`, targetId, {
-      x: e.touches[0].clientX / window.innerWidth,
-      y: e.touches[0].clientY / window.innerHeight
-    });
+
+  window.addEventListener(`touchstart`, e => {
+    drawing = true;
+    lastFingerPos = {x: e.targetTouches[0].clientX, y: e.targetTouches[0].clientY} 
   });
+  window.addEventListener(`touchend`, e => {
+    drawing = false;
+  });
+  window.addEventListener(`touchmove`, e => {
+    draw(e.targetTouches[0].clientX, e.targetTouches[0].clientY);
+  });    
+  
 };
 
 const connect = () => {
   // Met IP voor op mobile te testen!!!!!
-  // socket = io.connect('http://172.20.64.61.:8085');
-  socket = io.connect('http://localhost:8085');
+  socket = io.connect('http://192.168.0.31.:8085');
+  // socket = io.connect('http://localhost:8085');
   socket.on(`connectionUrl`, connectionUrl => {
     //   createQRCode();  
     console.log(`${socket.id}`);
