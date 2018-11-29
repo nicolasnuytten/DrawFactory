@@ -9,7 +9,7 @@ module.exports = (env, {mode}) => {
   return {
     entry: {
       desktop: './src/js/script.js',
-      mobile: './src/js/controllerScript.js'
+      mobile: ['babel-polyfill', './src/js/controllerScript.js']
     },
     output: {
       filename: '[name].[hash].js'

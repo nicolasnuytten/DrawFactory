@@ -20,6 +20,7 @@ import io from 'socket.io-client';
     createLight();
     connect();
     loop();
+
   };
 
 
@@ -35,17 +36,23 @@ import io from 'socket.io-client';
       console.log(`data from socket: ${data}`);
   
     });
+
+    
   
     socket.on(`connectiontest`, data => {
       controllerId = data;
       socket.emit(`connectiontest2`, controllerId, 'het werkt');
+    });
+
+    socket.on(`update`, data => {
+      console.log('de data', data);
     });
   
   };
   
   const subscrideOnUpdate = () => {
     socket.on(`update`, data => {
-      console.log('check');
+      console.log('de data', data);
     });
   };
 
