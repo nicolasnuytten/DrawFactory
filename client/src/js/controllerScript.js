@@ -225,7 +225,7 @@ const preprocess = imgData => {
 
 const connect = () => {
   // Met IP voor op mobile te testen!!!!!
-  socket = io.connect('http://10.0.161.190.:8085');
+  socket = io.connect('http://192.168.1.24.:8085');
   // socket = io.connect('http://localhost:8085');
   socket.on(`connectionUrl`, connectionUrl => {
     //   createQRCode();  
