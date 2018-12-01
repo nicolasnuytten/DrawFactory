@@ -2,6 +2,7 @@ import '../css/style.css';
 import * as THREE from 'three';
 import Sea from './classes/Sea';
 import io from 'socket.io-client';
+// import * as getIP from './utils/get-ip-addresses';
 
 {
   let scene, WIDTH, HEIGHT,
@@ -25,11 +26,14 @@ import io from 'socket.io-client';
 
 
   const connect = () => {
-    socket = io.connect('http://localhost:8085');
+    socket = io.connect('https://io-server-alypjefzjo.now.sh');
   
     socket.on(`connectionUrl`, connectionUrl => {
     //   createQRCode();  
-      console.log(`hello socket: ${connectionUrl}/controller.html?id=${socket.id}`);
+
+
+
+      console.log(`hello socket: u IP adress:8080/controller.html?id=${socket.id}`);
     });
   
     socket.on(`update`, data => {
