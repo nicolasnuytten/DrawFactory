@@ -9,6 +9,8 @@ import io from 'socket.io-client';
     camera, fieldOfView, aspectRatio, nPlane, fPlane, renderer, container, sea;
 
   let hemisphereLight, shadowLight;
+  let wishlistData;
+  let toDraw = `donut`;
 
   let controllerId;
   let controller;
@@ -19,33 +21,35 @@ import io from 'socket.io-client';
     createScene();
     createSea();
     createLight();
-    connect();
+    loadDict();
     loop();
 
   };
 
 
   const connect = () => {
-    socket = io.connect('https://io-server-alypjefzjo.now.sh');
+    socket = io.connect('https://io-server-nxqgfvvqpl.now.sh');
+    // socket = io.connect('http://localhost:8085');
+
+    lookForPredictionInput();
   
     socket.on(`connectionUrl`, connectionUrl => {
     //   createQRCode();  
-
-
-
+      // console.log(connectionUrl);
       console.log(`hello socket: u IP adress:8080/controller.html?id=${socket.id}`);
+      // console.log(`hello socket: ${connectionUrl}/controller.html?id=${socket.id}`);
+    });
+
+    socket.on(`controllerConnected`, data => {
+      console.log(`controller is connected`);
+      controllerId = data;
+      controllerIsConnected();
+      socket.emit(`clientConnected`, controllerId, 'client connected');
     });
   
     socket.on(`update`, data => {
       console.log(`data from socket: ${data}`);
   
-    });
-
-    
-  
-    socket.on(`connectiontest`, data => {
-      controllerId = data;
-      socket.emit(`connectiontest2`, controllerId, 'het werkt');
     });
 
     socket.on(`update`, data => {
@@ -58,6 +62,55 @@ import io from 'socket.io-client';
     socket.on(`update`, data => {
       console.log('de data', data);
     });
+  };
+
+  const loadDict = () => {
+    const loc = 'src/model2/class_names.txt';
+    
+    fetch(loc)
+      .then(res => res.text()) // parse response as JSON (can be res.text() for plain response)
+      .then(response => {
+        wishlistData = response.split(/\n/);
+        connect();
+      })
+      .catch(err => {
+        console.log('u');
+        alert('sorry, there are no results for your search');
+      });
+  
+    console.log('ready to go');
+  };
+
+
+  const controllerIsConnected = () => {
+    console.log(`the controller is connected`);
+    startGame();
+  };
+
+
+  const startGame = () => {
+    makeGiftCard();
+  };
+
+
+  const makeGiftCard = () => {
+    toDraw = wishlistData[Math.floor(Math.random() * wishlistData.length)];
+    socket.emit(`giftToDraw`, controllerId, toDraw);
+    console.log(toDraw);
+  };
+
+  const lookForPredictionInput = () => {
+    socket.on(`prediction`, data => {
+      data.suggestion.forEach(prediction => {
+        toDraw === prediction ? renderGift() : console.log(`drawing is wrong`);
+      });
+    });
+  };
+
+
+  const renderGift = () => {
+    console.log(`The drawing was right and now we can render the gift`);
+    makeGiftCard();
   };
 
   const createSea = () => {

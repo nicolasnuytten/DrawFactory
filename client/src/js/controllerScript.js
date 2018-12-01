@@ -12,6 +12,8 @@ let mousePressed = false;
 let modelLoaded = false;
 let numChannels;
 
+const informationText = document.querySelector('.information-text');
+
 const init = () => {
   console.log('hello mobile');
   targetId = getUrlParameter(`id`);
@@ -112,13 +114,13 @@ const getFrame = () => {
 
     const pred = model.predict(preprocess(imgData)).dataSync();
 
-    const indices = findIndicesOfMax(pred, 5);
-    const probs = findTopValues(pred, 5);
+    const indices = findIndicesOfMax(pred, 7);
+    const probs = findTopValues(pred, 7);
     const names = getClassNames(indices);
     console.log(names);
 
-    socket.emit(`update`, targetId, {
-      suggestion: names[0]
+    socket.emit(`prediction`, targetId, {
+      suggestion: names
     });
     console.log(`registering drawing`);
   }
@@ -224,21 +226,29 @@ const preprocess = imgData => {
 
 const connect = () => {
   // Met IP voor op mobile te testen!!!!!
-  socket = io.connect('https://io-server-alypjefzjo.now.sh');
+  socket = io.connect('https://io-server-nxqgfvvqpl.now.sh');
+  // socket = io.connect('http://178.119.186.88.:8085');
   // socket = io.connect('http://localhost:8085');
   socket.on(`connectionUrl`, connectionUrl => {
     //   createQRCode();  
     console.log(`${socket.id}`);
-    socket.emit(`connectiontest`, targetId, socket.id);
+    socket.emit(`controllerConnected`, targetId, socket.id);
   });
 
-  socket.on(`connectiontest2`, data => {
-    console.log(`komt ook terug aan:  ${data}`);
+  socket.on(`clientConnected`, data => {
+    console.log(`client is connected`);
   });
 
   socket.on(`update`, data => {
     console.log(`data from socket: ${data}`);
   });
+
+  socket.on(`giftToDraw`, data => {
+    refreshCanvas();
+    setGiftToDraw(data);
+  });
+
+
 };
 
 const getUrlParameter = name => {
@@ -246,6 +256,11 @@ const getUrlParameter = name => {
   const regex = new RegExp(`[\\?&]${  name  }=([^&#]*)`);
   const results = regex.exec(location.search);
   return results === null ? false : decodeURIComponent(results[1].replace(/\+/g, ' '));
+};
+
+const setGiftToDraw = giftToDraw => {
+  console.log(giftToDraw);
+  informationText.textContent = `draw a: ${giftToDraw}`;
 };
 
 init();

@@ -15,6 +15,10 @@ html {
   width: 90vw;
   height: 20vh;
   margin-top: 2rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .canvas-holder {
@@ -41,6 +45,13 @@ html {
   font-weight: 700;
   width: 100%;
   height: 100%;
+  font-family: Roboto, sans-serif;
+}
+
+.information-text {
+  font-size: 3.6rem;
+  color: white;
+  font-weight: 700;
   font-family: Roboto, sans-serif;
 }
 
