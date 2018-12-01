@@ -14,7 +14,8 @@
   "dependencies": {
     "@tensorflow/tfjs": "^0.13.5",
     "fabric": "^2.4.4",
-    "three": "^0.98.0"
+    "three": "^0.98.0",
+    "three-gltf-loader": "^1.99.0"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",

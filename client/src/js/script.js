@@ -1,6 +1,6 @@
 import '../css/style.css';
 import * as THREE from 'three';
-import Sea from './classes/Sea';
+import GLTFLoader from 'three-gltf-loader';
 import io from 'socket.io-client';
 // import * as getIP from './utils/get-ip-addresses';
 
@@ -19,9 +19,9 @@ import io from 'socket.io-client';
 
   const init = () => {
     createScene();
-    createSea();
     createLight();
     loadDict();
+    loadAssets();
     loop();
 
   };
@@ -94,7 +94,7 @@ import io from 'socket.io-client';
 
 
   const makeGiftCard = () => {
-    toDraw = wishlistData[Math.floor(Math.random() * wishlistData.length)];
+    // toDraw = wishlistData[Math.floor(Math.random() * wishlistData.length)];
     socket.emit(`giftToDraw`, controllerId, toDraw);
     console.log(toDraw);
   };
@@ -113,15 +113,15 @@ import io from 'socket.io-client';
     makeGiftCard();
   };
 
-  const createSea = () => {
-    sea = new Sea();
-    sea.mesh.position.y = - 600;
-    sea.mesh.position.x = 0;
-    scene.add(sea.mesh);
-
-    window.sea = sea;
+  const loadAssets = () => {
+    console.log('loading models...');
+    const loader = new THREE.GLTFLoader();
+    // loader.load('./assets/models/cup_model.gltf', loadedModel);
   };
 
+  const loadedModel = gltf => {
+    scene.add(gltf.scene);
+  };
 
   const createLight = () => {
     hemisphereLight = new THREE.HemisphereLight(0xaaaaaa, 0x000000, .9);
