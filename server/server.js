@@ -90,7 +90,7 @@ server.listen(port, () => {
 
   require('./get-ip-addresses')().then(ipAddresses => {
     if (ipAddresses.en0) {
-      connectionUrl = `http://${ipAddresses.en0[0]}:${port}`;
+      connectionUrl = `http://${ipAddresses.en0[0]}:8080`;
     } else {
       connectionUrl = `http://localhost:${port}`;
     }
