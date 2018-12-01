@@ -115,8 +115,8 @@ import io from 'socket.io-client';
 
   const loadAssets = () => {
     console.log('loading models...');
-    const loader = new THREE.GLTFLoader();
-    // loader.load('./assets/models/cup_model.gltf', loadedModel);
+    const loader = new GLTFLoader();
+    loader.load('src/assets/models/cup_model.gltf', loadedModel);
   };
 
   const loadedModel = gltf => {
