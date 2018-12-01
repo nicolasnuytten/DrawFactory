@@ -1,4 +1,4 @@
-import '../css/style.css';
+import '../css/controller.css';
 import io from 'socket.io-client';
 import * as tf from '@tensorflow/tfjs';
 import 'fabric';
@@ -8,7 +8,7 @@ let lastControllerX, lastControllerY;
 const fingerPos = {x: 0, y: 0};
 const lastFingerPos = fingerPos;
 const drawing = false;
-const coords = [];
+let coords = [];
 let model;
 const classNames = []; 
 let canvas;
@@ -39,17 +39,39 @@ let numChannels;
 const init = () => {
   console.log('hello mobile');
   targetId = getUrlParameter(`id`);
-  if (!targetId) {
-    alert(`Missing target ID in querystring`);
-    return;
-  }
-  connect();
+  // if (!targetId) {
+  //   alert(`Missing target ID in querystring`);
+  //   return;
+  // }
+  // connect();
 
+  setupCanvas();
+  
+  document.querySelector(`.refresh-button`).addEventListener(`click`, refreshCanvas);
+
+  loadModel();
+
+  
+};
+
+const setupCanvas = () => {
+  const canvasSelection = document.getElementById('canvas');
+  const viewportWidth = window.innerWidth;
+  const viewportHeight = window.innerHeight;
+
+  if (window.innerHeight >= window.innerWidth) {
+    canvasSelection.width = Math.round(viewportWidth * 90 / 100);
+    canvasSelection.height = Math.round(viewportWidth * 90 / 100);
+  } else {
+    canvasSelection.width = Math.round(viewportWidth * 80 / 100);
+    canvasSelection.height = Math.round(viewportHeight * 50 / 100);
+  }
+  
   canvas = new fabric.Canvas('canvas');
   canvas.backgroundColor = '#ffffff';
   canvas.isDrawingMode = 1;
   canvas.freeDrawingBrush.color = 'black';
-  canvas.freeDrawingBrush.width = 10;
+  canvas.freeDrawingBrush.width = 15;
   canvas.renderAll();
   //setup listeners
   canvas.on('mouse:up', e => {
@@ -66,9 +88,6 @@ const init = () => {
     recordCoor(e);
   });
 
-  loadModel();
-
-  
 };
 
 const recordCoor = e => {
@@ -79,6 +98,12 @@ const recordCoor = e => {
   if (posX >= 0 && posY >= 0 && mousePressed) {
     coords.push(pointer);
   }
+};
+
+const refreshCanvas = () => {
+  canvas.clear();
+  canvas.backgroundColor = '#ffffff';
+  coords = [];
 };
 
 const loadModel = async () => {

@@ -2,10 +2,27 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        WebFontConfig = {
+          google: {
+            families: ['Roboto:400,700']
+          }
+        };
+        (function (d) {
+          var wf = d.createElement('script'), s = d.scripts[0];
+          wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js';
+          wf.async = true;
+          s.parentNode.insertBefore(wf, s);
+        })(document);
+      </script>
     <title>Controller</title>
-    <!-- <script src="fabric.js"></script> -->
   </head>
   <body>
-    <div><canvas id="canvas"></canvas></div>
+    <div class="page-container">
+      <div class="message-container"></div>
+      <div class="canvas-holder"><canvas id="canvas"></canvas></div>
+      <div class="refresh-button-container"><button class="refresh-button">Clear Canvas</button></div>
+    </div>
   </body>
 </html>
