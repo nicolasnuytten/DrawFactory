@@ -4,10 +4,6 @@ import * as tf from '@tensorflow/tfjs';
 import 'fabric';
 
 let socket, targetId;
-let lastControllerX, lastControllerY;
-const fingerPos = {x: 0, y: 0};
-const lastFingerPos = fingerPos;
-const drawing = false;
 let coords = [];
 let model;
 const classNames = []; 
@@ -16,42 +12,20 @@ let mousePressed = false;
 let modelLoaded = false;
 let numChannels;
 
-// const draw = (x, y) => {
-//   fingerPos =  {x, y};
-//   ctx.beginPath();
-//   ctx.strokeStyle = `black`;
-//   ctx.lineWidth = 4;
-//   ctx.lineJoin = 'round';
-//   ctx.moveTo(x, y);
-//   ctx.lineTo(lastFingerPos.x, lastFingerPos.y);
-//   ctx.closePath();
-//   ctx.stroke();
-
-//   lastFingerPos = {x, y}; 
-// };
-
-
-// socket.emit(`update`, targetId, {
-//   x: e.touches[0].clientX / window.innerWidth,
-//   y: e.touches[0].clientY / window.innerHeight
-// });
-
 const init = () => {
   console.log('hello mobile');
   targetId = getUrlParameter(`id`);
-  // if (!targetId) {
-  //   alert(`Missing target ID in querystring`);
-  //   return;
-  // }
-  // connect();
+  if (!targetId) {
+    alert(`Missing target ID in querystring`);
+    return;
+  }
+  connect();
 
   setupCanvas();
   
   document.querySelector(`.refresh-button`).addEventListener(`click`, refreshCanvas);
 
   loadModel();
-
-  
 };
 
 const setupCanvas = () => {
