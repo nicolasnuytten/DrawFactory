@@ -114,14 +114,16 @@ import io from 'socket.io-client';
   };
 
   const loadAssets = () => {
-    console.log('loading models...');
-    const loader = new GLTFLoader();
-    loader.load('src/assets/models/cup_model.gltf', loadedModel);
+
   };
 
   const loadedModel = gltf => {
     console.log(gltf);
+    gltf.scene.scale.x = 10;
+    gltf.scene.scale.y = 10;
+    gltf.scene.scale.z = 10;
     scene.add(gltf.scene);
+
   };
 
   const createLight = () => {
@@ -180,6 +182,10 @@ import io from 'socket.io-client';
     container.appendChild(renderer.domElement);
 
     window.addEventListener('resize', handleWindowResize, false);
+
+    console.log('loading models...');
+    const loader = new GLTFLoader().setPath('src/assets/models/');
+    loader.load('cat.gltf', loadedModel);
   };
 
   function handleWindowResize() {
