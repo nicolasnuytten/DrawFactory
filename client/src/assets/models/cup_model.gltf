@@ -124,12 +124,12 @@
   "buffers": [
     {
       "byteLength": 1290096,
-      "uri": "scene.bin"
+      "uri": "cup.bin"
     }
   ],
   "images": [
     {
-      "uri": "textures/Material.001_baseColor.png"
+      "uri": "cup_mat.png"
     }
   ],
   "materials": [

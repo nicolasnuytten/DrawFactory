@@ -120,6 +120,7 @@ import io from 'socket.io-client';
   };
 
   const loadedModel = gltf => {
+    console.log(gltf);
     scene.add(gltf.scene);
   };
 
