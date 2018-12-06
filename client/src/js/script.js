@@ -122,6 +122,7 @@ import io from 'socket.io-client';
     gltf.scene.scale.x = 10;
     gltf.scene.scale.y = 10;
     gltf.scene.scale.z = 10;
+    gltf.scene.position.z = - 200;
     scene.add(gltf.scene);
 
   };
