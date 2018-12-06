@@ -58,7 +58,7 @@ import { qr } from '@tensorflow/tfjs-core/dist/ops/linalg_ops';
       console.log(`controller is connected`);
       controllerId = data;
       controllerIsConnected();
-      deleteQR();
+      deleteStart();
       socket.emit(`clientConnected`, controllerId, 'client connected');
     });
   
@@ -96,9 +96,9 @@ import { qr } from '@tensorflow/tfjs-core/dist/ops/linalg_ops';
     console.log('ready to go');
   };
 
-  const deleteQR = () => {
-    const qrField = document.querySelector('.qrcode');
-    qrField.style.display = 'none';
+  const deleteStart = () => {
+    const startField = document.querySelector('.start-screen');
+    startField.style.display = 'none';
   };
 
   const controllerIsConnected = () => {
