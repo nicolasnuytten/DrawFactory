@@ -1,7 +1,9 @@
-import '../css/style.css';
+import '../css/index.css';
 import * as THREE from 'three';
 import GLTFLoader from 'three-gltf-loader';
 import io from 'socket.io-client';
+import * as qrgen from 'qrcode-generator';
+import { qr } from '@tensorflow/tfjs-core/dist/ops/linalg_ops';
 // import * as getIP from './utils/get-ip-addresses';
 
 {
@@ -15,6 +17,7 @@ import io from 'socket.io-client';
   let controllerId;
   let controller;
   let socket;
+  // let qr;
 
 
   const init = () => {
@@ -22,6 +25,10 @@ import io from 'socket.io-client';
     createLight();
     loadDict();
     loop();
+
+    // qr = new qrgen;
+
+    // console.log(qr);
 
   };
 
@@ -36,6 +43,13 @@ import io from 'socket.io-client';
     //   createQRCode();  
       // console.log(connectionUrl);
       console.log(`hello socket: u IP adress:8080/controller.html?id=${socket.id}`);
+      const qrcode = qrgen(5, `L`);
+      qrcode.addData(`http://onzesite.com:3000/controller.html?id=${socket.id}`);
+
+      qrcode.make();
+      document.querySelector(`.qrcode`).innerHTML = qrcode.createImgTag();
+
+      console.log(qrcode);
       // console.log(`hello socket: ${connectionUrl}/controller.html?id=${socket.id}`);
     });
 
@@ -43,6 +57,7 @@ import io from 'socket.io-client';
       console.log(`controller is connected`);
       controllerId = data;
       controllerIsConnected();
+      deleteQR();
       socket.emit(`clientConnected`, controllerId, 'client connected');
     });
   
@@ -80,6 +95,10 @@ import io from 'socket.io-client';
     console.log('ready to go');
   };
 
+  const deleteQR = () => {
+    const qrField = document.querySelector('.qrcode');
+    qrField.style.display = 'none';
+  };
 
   const controllerIsConnected = () => {
     console.log(`the controller is connected`);
