@@ -772,90 +772,90 @@
   "buffers": [
     {
       "byteLength": 500208,
-      "uri": "cat.bin"
+      "uri": "cat/cat.bin"
     }
   ],
   "images": [
     {
-      "uri": "cat_textures/frontleg_baseColor.jpeg"
+      "uri": "cat/cat_textures/frontleg_baseColor.jpeg"
     },
     {
-      "uri": "cat_textures/frontleg_metallicRoughness.png"
+      "uri": "cat/cat_textures/frontleg_metallicRoughness.png"
     },
     {
-      "uri": "cat_textures/frontleg_normal.png"
+      "uri": "cat/cat_textures/frontleg_normal.png"
     },
     {
-      "uri": "cat_textures/backleg_baseColor.jpeg"
+      "uri": "cat/cat_textures/backleg_baseColor.jpeg"
     },
     {
-      "uri": "cat_textures/backleg_metallicRoughness.png"
+      "uri": "cat/cat_textures/backleg_metallicRoughness.png"
     },
     {
-      "uri": "cat_textures/backleg_normal.png"
+      "uri": "cat/cat_textures/backleg_normal.png"
     },
     {
-      "uri": "cat_textures/beard_baseColor.jpeg"
+      "uri": "cat/cat_textures/beard_baseColor.jpeg"
     },
     {
-      "uri": "cat_textures/beard_metallicRoughness.png"
+      "uri": "cat/cat_textures/beard_metallicRoughness.png"
     },
     {
-      "uri": "cat_textures/beard_normal.png"
+      "uri": "cat/cat_textures/beard_normal.png"
     },
     {
-      "uri": "cat_textures/material_baseColor.jpeg"
+      "uri": "cat/cat_textures/material_baseColor.jpeg"
     },
     {
-      "uri": "cat_textures/material_metallicRoughness.png"
+      "uri": "cat/cat_textures/material_metallicRoughness.png"
     },
     {
-      "uri": "cat_textures/material_normal.png"
+      "uri": "cat/cat_textures/material_normal.png"
     },
     {
-      "uri": "cat_textures/tail_baseColor.jpeg"
+      "uri": "cat/cat_textures/tail_baseColor.jpeg"
     },
     {
-      "uri": "cat_textures/tail_metallicRoughness.png"
+      "uri": "cat/cat_textures/tail_metallicRoughness.png"
     },
     {
-      "uri": "cat_textures/tail_normal.png"
+      "uri": "cat/cat_textures/tail_normal.png"
     },
     {
-      "uri": "cat_textures/head_baseColor.jpeg"
+      "uri": "cat/cat_textures/head_baseColor.jpeg"
     },
     {
-      "uri": "cat_textures/head_metallicRoughness.png"
+      "uri": "cat/cat_textures/head_metallicRoughness.png"
     },
     {
-      "uri": "cat_textures/head_normal.png"
+      "uri": "cat/cat_textures/head_normal.png"
     },
     {
-      "uri": "cat_textures/nose_baseColor.jpeg"
+      "uri": "cat/cat_textures/nose_baseColor.jpeg"
     },
     {
-      "uri": "cat_textures/nose_metallicRoughness.png"
+      "uri": "cat/cat_textures/nose_metallicRoughness.png"
     },
     {
-      "uri": "cat_textures/nose_normal.png"
+      "uri": "cat/cat_textures/nose_normal.png"
     },
     {
-      "uri": "cat_textures/material_5_baseColor.jpeg"
+      "uri": "cat/cat_textures/material_5_baseColor.jpeg"
     },
     {
-      "uri": "cat_textures/material_5_metallicRoughness.png"
+      "uri": "cat/cat_textures/material_5_metallicRoughness.png"
     },
     {
-      "uri": "cat_textures/material_5_normal.png"
+      "uri": "cat/cat_textures/material_5_normal.png"
     },
     {
-      "uri": "cat_textures/body_baseColor.jpeg"
+      "uri": "cat/cat_textures/body_baseColor.jpeg"
     },
     {
-      "uri": "cat_textures/body_metallicRoughness.png"
+      "uri": "cat/cat_textures/body_metallicRoughness.png"
     },
     {
-      "uri": "cat_textures/body_normal.png"
+      "uri": "cat/cat_textures/body_normal.png"
     }
   ],
   "materials": [

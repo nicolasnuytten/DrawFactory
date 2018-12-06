@@ -10,7 +10,7 @@ import io from 'socket.io-client';
 
   let hemisphereLight, shadowLight;
   let wishlistData;
-  let toDraw = `donut`;
+  let toDraw;
 
   let controllerId;
   let controller;
@@ -21,7 +21,6 @@ import io from 'socket.io-client';
     createScene();
     createLight();
     loadDict();
-    loadAssets();
     loop();
 
   };
@@ -65,7 +64,7 @@ import io from 'socket.io-client';
   };
 
   const loadDict = () => {
-    const loc = 'src/model2/class_names.txt';
+    const loc = 'src/gifts.txt';
     
     fetch(loc)
       .then(res => res.text()) // parse response as JSON (can be res.text() for plain response)
@@ -94,7 +93,11 @@ import io from 'socket.io-client';
 
 
   const makeGiftCard = () => {
-    // toDraw = wishlistData[Math.floor(Math.random() * wishlistData.length)];
+    const toDrawPrev = toDraw;
+    toDraw = wishlistData[Math.floor(Math.random() * wishlistData.length)];
+    if (toDrawPrev === toDraw) {
+      toDraw = wishlistData[Math.floor(Math.random() * wishlistData.length)];
+    }
     socket.emit(`giftToDraw`, controllerId, toDraw);
     console.log(toDraw);
   };
@@ -102,19 +105,22 @@ import io from 'socket.io-client';
   const lookForPredictionInput = () => {
     socket.on(`prediction`, data => {
       data.suggestion.forEach(prediction => {
-        toDraw === prediction ? renderGift() : console.log(`drawing is wrong`);
+        toDraw === prediction ? renderGift(toDraw) : console.log(`drawing is wrong`);
       });
     });
   };
 
 
-  const renderGift = () => {
+  const renderGift = gift => {
     console.log(`The drawing was right and now we can render the gift`);
     makeGiftCard();
+    loadAssets(gift);
   };
 
-  const loadAssets = () => {
-
+  const loadAssets = gift => {
+    console.log('loading models...');
+    const loader = new GLTFLoader().setPath('src/assets/models/');
+    loader.load(`${gift}/${gift}.gltf`, loadedModel);
   };
 
   const loadedModel = gltf => {
@@ -123,6 +129,8 @@ import io from 'socket.io-client';
     gltf.scene.scale.y = 10;
     gltf.scene.scale.z = 10;
     gltf.scene.position.z = - 200;
+    gltf.scene.position.x = Math.random() * 200;
+    gltf.scene.position.y = Math.random() * 200;
     scene.add(gltf.scene);
 
   };
@@ -166,11 +174,6 @@ import io from 'socket.io-client';
     camera.position.y = 100;
     camera.position.z = 200;
 
-    const geometry = new THREE.BoxGeometry(1, 1, 1);
-    const material = new THREE.MeshBasicMaterial({color: 0x00ff00});
-    const cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
-
     renderer = new THREE.WebGLRenderer({
       alpha: true,
       antialias: true
@@ -183,10 +186,6 @@ import io from 'socket.io-client';
     container.appendChild(renderer.domElement);
 
     window.addEventListener('resize', handleWindowResize, false);
-
-    console.log('loading models...');
-    const loader = new GLTFLoader().setPath('src/assets/models/');
-    loader.load('cat.gltf', loadedModel);
   };
 
   function handleWindowResize() {
