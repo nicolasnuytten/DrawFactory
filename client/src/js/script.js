@@ -3,19 +3,17 @@ import * as THREE from 'three';
 import GLTFLoader from 'three-gltf-loader';
 import io from 'socket.io-client';
 import * as qrgen from 'qrcode-generator';
-import { qr } from '@tensorflow/tfjs-core/dist/ops/linalg_ops';
 // import * as getIP from './utils/get-ip-addresses';
 
 {
   let scene, WIDTH, HEIGHT,
-    camera, fieldOfView, aspectRatio, nPlane, fPlane, renderer, container, sea;
+    camera, fieldOfView, aspectRatio, nPlane, fPlane, renderer, container;
 
   let hemisphereLight, shadowLight;
   let wishlistData;
   let toDraw;
 
   let controllerId;
-  let controller;
   let socket;
   // let qr;
 
@@ -44,7 +42,7 @@ import { qr } from '@tensorflow/tfjs-core/dist/ops/linalg_ops';
       // console.log(connectionUrl);
       console.log(`hello socket: u IP adress:8080/controller.html?id=${socket.id}`);
       const qrcode = qrgen(5, `L`);
-      qrcode.addData(`http://onzesite.com:3000/controller.html?id=${socket.id}`);
+      qrcode.addData(`172.20.64.51:8080/controller.html?id=${socket.id}`);
 
       qrcode.make();
       document.querySelector(`.qrcode`).innerHTML = qrcode.createImgTag();
@@ -72,11 +70,11 @@ import { qr } from '@tensorflow/tfjs-core/dist/ops/linalg_ops';
   
   };
   
-  const subscrideOnUpdate = () => {
-    socket.on(`update`, data => {
-      console.log('de data', data);
-    });
-  };
+  // const subscrideOnUpdate = () => {
+  //   socket.on(`update`, data => {
+  //     console.log('de data', data);
+  //   });
+  // };
 
   const loadDict = () => {
     const loc = 'src/gifts.txt';
@@ -88,7 +86,7 @@ import { qr } from '@tensorflow/tfjs-core/dist/ops/linalg_ops';
         connect();
       })
       .catch(err => {
-        console.log('u');
+        console.log(err);
         alert('sorry, there are no results for your search');
       });
   
@@ -137,16 +135,16 @@ import { qr } from '@tensorflow/tfjs-core/dist/ops/linalg_ops';
   };
 
   const loadAssets = gift => {
-    console.log('loading models...');
+    console.log('loading model');
     const loader = new GLTFLoader().setPath('src/assets/models/');
     loader.load(`${gift}/${gift}.gltf`, loadedModel);
   };
 
   const loadedModel = gltf => {
     console.log(gltf);
-    gltf.scene.scale.x = 10;
-    gltf.scene.scale.y = 10;
-    gltf.scene.scale.z = 10;
+    gltf.scene.scale.x = 1;
+    gltf.scene.scale.y = 1;
+    gltf.scene.scale.z = 1;
     gltf.scene.position.z = - 200;
     gltf.scene.position.x = Math.random() * 200;
     gltf.scene.position.y = Math.random() * 200;
