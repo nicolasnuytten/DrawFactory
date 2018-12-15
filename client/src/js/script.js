@@ -56,7 +56,7 @@ import * as qrgen from 'qrcode-generator';
       console.log(`controller is connected`);
       controllerId = data;
       controllerIsConnected();
-      deleteQR();
+      deleteStart();
       socket.emit(`clientConnected`, controllerId, 'client connected');
     });
   
@@ -94,9 +94,9 @@ import * as qrgen from 'qrcode-generator';
     console.log('ready to go');
   };
 
-  const deleteQR = () => {
-    const qrField = document.querySelector('.qrcode');
-    qrField.style.display = 'none';
+  const deleteStart = () => {
+    const startField = document.querySelector('.start-screen');
+    startField.style.display = 'none';
   };
 
   const controllerIsConnected = () => {
