@@ -79,7 +79,9 @@ import * as qrgen from 'qrcode-generator';
   // };
 
   const loadDict = () => {
-    const loc = 'src/gifts.txt';
+    const loc = 'gifts.txt';
+
+    console.log(loc);
     
     fetch(loc)
       .then(res => res.text()) // parse response as JSON (can be res.text() for plain response)
@@ -91,7 +93,7 @@ import * as qrgen from 'qrcode-generator';
         console.log(err);
         alert('sorry, there are no results for your search');
       });
-  
+
     console.log('ready to go');
   };
 
@@ -138,7 +140,7 @@ import * as qrgen from 'qrcode-generator';
 
   const loadAssets = gift => {
     console.log('loading model');
-    const loader = new GLTFLoader().setPath('src/assets/models/');
+    const loader = new GLTFLoader().setPath('assets/models/');
     loader.load(`${gift}/${gift}.gltf`, loadedModel);
   };
 
@@ -214,7 +216,7 @@ import * as qrgen from 'qrcode-generator';
 
     window.addEventListener('resize', handleWindowResize, false);
 
-    const loader = new GLTFLoader().setPath('src/assets/models/');
+    const loader = new GLTFLoader().setPath('assets/models/');
     loader.load(`scene.gltf`, function (gltf) {
       gltf.scene.scale.set(1, 1, 1);
       gltf.scene.position.x = - 100;

@@ -3,6 +3,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const postcssPresetEnv = require('postcss-preset-env');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const webpack = require(`webpack`);
+const CriticalPlugin = require('webpack-plugin-critical').CriticalPlugin;
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
 
 module.exports = (env, {mode}) => {
   console.log(mode);
@@ -16,7 +19,8 @@ module.exports = (env, {mode}) => {
     },
     devServer: {
       overlay: true,
-      hot: true
+      hot: true,
+      contentBase: './src'
     },
     module: {
       rules: [
@@ -33,13 +37,43 @@ module.exports = (env, {mode}) => {
             {
               loader: 'html-srcsets-loader',
               options: {
-                attrs: [':src', ':srcset']
+                attrs: [
+                  `img:src`,
+                  `audio:src`,
+                  `video:src`,
+                  `source:srcset`
+                ]
               }
             }
           ]
         },
         {
-          test: /\.(jpe?g|png|svg|webp)$/,
+          test: /\.txt$/,
+          use: [
+            {
+              loader: 'raw-loader',
+            }
+          ]
+        },
+        {
+          test: /\.(jpe?g|png|svg|webp|mp3)$/,
+          use: {
+            loader: 'file-loader',
+            options: {
+              // limit: 1,
+              context: './src',
+              name: '[path][name].[ext]',
+              attrs: [
+                `img:src`,
+                `audio:src`,
+                `video:src`,
+                `source:srcset`
+              ]
+            }
+          }
+        },
+        {
+          test: /\.(mp3)$/,
           use: {
             loader: 'file-loader',
             options: {
@@ -85,8 +119,18 @@ module.exports = (env, {mode}) => {
       new MiniCssExtractPlugin({
         filename: 'style.[contenthash].css'
       }),
+      new CopyWebpackPlugin([
+        {from: './src/model2', to: 'model2'},
+        {from: './src/gifts.txt', to: ''},
+        {from: './src/mini_classes.txt', to: ''},
+        {from: './src/assets/audio', to: 'assets/audio'},
+        {from: './src/assets/models', to: 'assets/models'},
+      ]),
       new OptimizeCSSAssetsPlugin(),
       new webpack.HotModuleReplacementPlugin()
     ]
   };
+  
+
+  
 };

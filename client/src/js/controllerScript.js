@@ -86,7 +86,7 @@ const refreshCanvas = () => {
 };
 
 const loadModel = async () => {
-  model = await tf.loadModel('src/model2/model.json');
+  model = await tf.loadModel('model2/model.json');
 
   model.predict(tf.zeros([1, 28, 28, 1]));
 
@@ -94,7 +94,7 @@ const loadModel = async () => {
 };
 
 const loadDict = async () => {
-  const loc = 'src/model2/class_names.txt';
+  const loc = 'model2/class_names.txt';
   
   fetch(loc)
     .then(res => res.text()) // parse response as JSON (can be res.text() for plain response)
@@ -258,7 +258,7 @@ const connect = () => {
     canvas.isDrawingMode = 0;
     popUp.style.display = 'flex';
     informationText.textContent = ``;
-    const audio = new Audio('../src/assets/sounds/correct.mp3');
+    const audio = new Audio('assets/audio/correct.mp3');
     audio.loop = false;
     audio.play();
     refreshCanvas();
