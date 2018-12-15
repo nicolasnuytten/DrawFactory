@@ -43,7 +43,6 @@ io.on('connection', socket => {
     socket.to(targetId).emit('controllerConnected', data);
   });
 
-
   socket.on('clientConnected', (controllerId, data) => {
     console.log(`de id van de controller ${controllerId}`);
     // if the target user does not exist, ignore it
@@ -53,6 +52,25 @@ io.on('connection', socket => {
     }
     // send an update to that particular socket
     socket.to(controllerId).emit('clientConnected', data);
+  });
+
+  socket.on('giftToDraw', (controllerId, data) => {
+    if (!users[controllerId]) {
+      console.log(`het zit hier`);
+      return;
+    }
+    // send an update to that particular socket
+    socket.to(controllerId).emit('giftToDraw', data);
+  });
+
+
+  socket.on('correctDrawing', (controllerId, data) => {
+    if (!users[controllerId]) {
+      console.log(`het zit hier`);
+      return;
+    }
+    // send an update to that particular socket
+    socket.to(controllerId).emit('correctDrawing', data);
   });
 
   socket.on('prediction', (clientId, data) => {
