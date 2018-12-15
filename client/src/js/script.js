@@ -15,6 +15,7 @@ import * as qrgen from 'qrcode-generator';
 
   let controllerId;
   let socket;
+  let gifts = [];
   // let qr;
 
 
@@ -42,7 +43,7 @@ import * as qrgen from 'qrcode-generator';
       // console.log(connectionUrl);
       console.log(`hello socket: u IP adress:8080/controller.html?id=${socket.id}`);
       const qrcode = qrgen(5, `L`);
-      qrcode.addData(`172.20.64.51:8080/controller.html?id=${socket.id}`);
+      qrcode.addData(`192.168.0.233:8080/controller.html?id=${socket.id}`);
 
       qrcode.make();
       document.querySelector(`.qrcode`).innerHTML = qrcode.createImgTag();
@@ -138,18 +139,24 @@ import * as qrgen from 'qrcode-generator';
     console.log('loading model');
     const loader = new GLTFLoader().setPath('src/assets/models/');
     loader.load(`${gift}/${gift}.gltf`, loadedModel);
+    
   };
 
   const loadedModel = gltf => {
     console.log(gltf);
-    gltf.scene.scale.x = 1;
-    gltf.scene.scale.y = 1;
-    gltf.scene.scale.z = 1;
+    gltf.scene.scale.set(gltf.parser.json.extra.scale, gltf.parser.json.extra.scale, gltf.parser.json.extra.scale);
+    
+    gltf.scene.rotation.x = gltf.parser.json.extra.rotationX;
+    gltf.scene.rotation.y = gltf.parser.json.extra.rotationY;
+    gltf.scene.rotation.z = gltf.parser.json.extra.rotationZ;
+
     gltf.scene.position.z = - 200;
-    gltf.scene.position.x = Math.random() * 200;
-    gltf.scene.position.y = Math.random() * 200;
+    gltf.scene.position.x = (Math.random() * 1000) - 500; 
+    gltf.scene.position.y = Math.random() * 500;
     scene.add(gltf.scene);
 
+    gifts.push(gltf);
+    // console.log(gifts);
   };
 
   const createLight = () => {
@@ -212,10 +219,24 @@ import * as qrgen from 'qrcode-generator';
     camera.aspect = WIDTH / HEIGHT;
     camera.updateProjectionMatrix();
   }
+
+  const gravity = () => {
+    if (gifts) {
+      gifts.forEach(gift => {
+        // console.log(gift);
+        if (gift.scene.position.y >= gift.parser.json.extra.ground) {
+
+          gift.scene.position.y --;
+        }
+      });
+    }
+  };
   
   const loop =  () => {
     requestAnimationFrame(loop);
     
+    gravity();
+
     renderer.render(scene, camera);
   };
 

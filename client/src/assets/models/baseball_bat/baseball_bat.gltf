@@ -189,5 +189,12 @@
          "name" : "scene-0",
          "nodes" : [ 0 ]
       }
-   ]
+   ],
+   "extra" : {
+         "ground" : -100,
+         "scale" : 10,
+         "rotationX" : 0,
+         "rotationY" : 0,
+         "rotationZ" : 0
+   }
 }

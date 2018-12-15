@@ -149,5 +149,12 @@
          "sampler" : 0,
          "source" : 0
       }
-   ]
+   ],
+   "extra" : {
+         "ground" : -100,
+         "scale" : 1,
+         "rotationX" : 90,
+         "rotationY" : 0,
+         "rotationZ" : 0
+   }
 }
