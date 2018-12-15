@@ -8,9 +8,11 @@ let coords = [];
 let model;
 const classNames = []; 
 let canvas;
+let firstCorrectDrawing = false;
 let mousePressed = false;
 let modelLoaded = false;
 let numChannels;
+let selectedGift;
 
 const informationText = document.querySelector('.information-text');
 
@@ -45,7 +47,7 @@ const setupCanvas = () => {
   
   canvas = new fabric.Canvas('canvas');
   canvas.backgroundColor = '#ffffff';
-  canvas.isDrawingMode = 1;
+  canvas.isDrawingMode = 0;
   canvas.freeDrawingBrush.color = 'black';
   canvas.freeDrawingBrush.width = 15;
   canvas.renderAll();
@@ -251,7 +253,18 @@ const connect = () => {
 
   socket.on(`correctDrawing`, data => {
     console.log(`drawing is correct`);
+    firstCorrectDrawing = true;
+    informationText.classList.add('correct');
+    informationText.textContent = `correct`;
+    const audio = new Audio('../src/assets/sounds/correct.mp3');
+    audio.loop = false;
+    audio.play();
     refreshCanvas();
+    setTimeout(() => {
+      canvas.isDrawingMode = 1;
+      informationText.textContent = `draw a: ${selectedGift}`;
+      informationText.classList.remove('correct');
+    }, 2000);
   });
 };
 
@@ -263,8 +276,12 @@ const getUrlParameter = name => {
 };
 
 const setGiftToDraw = giftToDraw => {
-  console.log(giftToDraw);
-  informationText.textContent = `draw a: ${giftToDraw}`;
+  selectedGift = giftToDraw;
+  if (firstCorrectDrawing === false) {
+    canvas.isDrawingMode = 1;
+    informationText.textContent = `draw a: ${giftToDraw}`;
+  }
+ 
 };
 
 init();
