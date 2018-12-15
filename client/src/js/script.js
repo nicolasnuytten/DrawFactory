@@ -12,6 +12,7 @@ import * as qrgen from 'qrcode-generator';
   let hemisphereLight, shadowLight;
   let wishlistData;
   let toDraw;
+  let getInputData = false;
 
   let controllerId;
   let socket;
@@ -25,15 +26,12 @@ import * as qrgen from 'qrcode-generator';
     loadDict();
     loop();
 
-    // qr = new qrgen;
-
-    // console.log(qr);
-
   };
 
 
   const connect = () => {
-    socket = io.connect('https://io-server-nxqgfvvqpl.now.sh');
+    // socket = io.connect('https://io-server-nxqgfvvqpl.now.sh');
+    socket = io.connect('https://io-server-nfmgfiicut.now.sh');
     // socket = io.connect('http://localhost:8085');
 
     lookForPredictionInput();
@@ -117,20 +115,22 @@ import * as qrgen from 'qrcode-generator';
       toDraw = wishlistData[Math.floor(Math.random() * wishlistData.length)];
     }
     socket.emit(`giftToDraw`, controllerId, toDraw);
+    getInputData = true;
     console.log(toDraw);
   };
 
   const lookForPredictionInput = () => {
     socket.on(`prediction`, data => {
       data.suggestion.forEach(prediction => {
-        toDraw === prediction ? renderGift(toDraw) : console.log(`drawing is wrong`);
+        toDraw === prediction && getInputData ? renderGift(toDraw) : console.log(`drawing is wrong`);
       });
     });
   };
 
-
   const renderGift = gift => {
+    getInputData = false;
     console.log(`The drawing was right and now we can render the gift`);
+    socket.emit(`correctDrawing`, controllerId, `correctDrawing`);
     makeGiftCard();
     loadAssets(gift);
   };

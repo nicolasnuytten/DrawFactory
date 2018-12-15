@@ -45,7 +45,6 @@ const setupCanvas = () => {
   
   canvas = new fabric.Canvas('canvas');
   canvas.backgroundColor = '#ffffff';
-  canvas.isDrawingMode = 1;
   canvas.freeDrawingBrush.color = 'black';
   canvas.freeDrawingBrush.width = 15;
   canvas.renderAll();
@@ -77,9 +76,9 @@ const recordCoor = e => {
 };
 
 const refreshCanvas = () => {
+  coords = [];
   canvas.clear();
   canvas.backgroundColor = '#ffffff';
-  coords = [];
 };
 
 const loadModel = async () => {
@@ -165,11 +164,8 @@ const getMinBox = () => {
 };
 
 const getImageData = () => {
-
   const mbb = getMinBox();
-
   const dpi = window.devicePixelRatio;
-
   const imgData = canvas.contextContainer.getImageData(mbb.min.x * dpi, mbb.min.y * dpi,
     (mbb.max.x - mbb.min.x) * dpi, (mbb.max.y - mbb.min.y) * dpi);
 
@@ -226,12 +222,14 @@ const preprocess = imgData => {
 
 const connect = () => {
   // Met IP voor op mobile te testen!!!!!
-  socket = io.connect('https://io-server-nxqgfvvqpl.now.sh');
-  // socket = io.connect('http://178.119.186.88.:8085');
+  // socket = io.connect('https://io-server-nxqgfvvqpl.now.sh');
+  socket = io.connect('https://io-server-nfmgfiicut.now.sh');
+  
+  // socket = io.connect('http://192.168.1.24.:8085');
   // socket = io.connect('http://localhost:8085');
   socket.on(`connectionUrl`, connectionUrl => {
     //   createQRCode();  
-    console.log(`${socket.id}`);
+    console.log(`this is the socket id ${socket.id}`);
     socket.emit(`controllerConnected`, targetId, socket.id);
   });
 
@@ -248,7 +246,9 @@ const connect = () => {
     setGiftToDraw(data);
   });
 
-
+  socket.on(`correctDrawing`, data => {
+    refreshCanvas();
+  });
 };
 
 const getUrlParameter = name => {
