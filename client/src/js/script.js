@@ -42,7 +42,7 @@ import * as qrgen from 'qrcode-generator';
       // console.log(connectionUrl);
       console.log(`hello socket: u IP adress:8080/controller.html?id=${socket.id}`);
       const qrcode = qrgen(5, `L`);
-      qrcode.addData(`192.168.0.233:8080/controller.html?id=${socket.id}`);
+      qrcode.addData(`192.168.1.24.:8080/controller.html?id=${socket.id}`);
 
       qrcode.make();
       document.querySelector(`.qrcode`).innerHTML = qrcode.createImgTag();
