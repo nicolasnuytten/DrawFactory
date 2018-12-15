@@ -15,6 +15,7 @@ let numChannels;
 let selectedGift;
 
 const informationText = document.querySelector('.information-text');
+const popUp = document.querySelector('.correct');
 
 const init = () => {
   console.log('hello mobile');
@@ -254,7 +255,8 @@ const connect = () => {
   socket.on(`correctDrawing`, data => {
     console.log(`drawing is correct`);
     firstCorrectDrawing = true;
-    informationText.classList.add('correct');
+    canvas.isDrawingMode = 0;
+    popUp.style.display = 'flex';
     informationText.textContent = `correct`;
     const audio = new Audio('../src/assets/sounds/correct.mp3');
     audio.loop = false;
@@ -263,7 +265,7 @@ const connect = () => {
     setTimeout(() => {
       canvas.isDrawingMode = 1;
       informationText.textContent = `draw a: ${selectedGift}`;
-      informationText.classList.remove('correct');
+      popUp.style.display = 'none';
     }, 2000);
   });
 };

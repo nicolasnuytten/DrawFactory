@@ -140,7 +140,6 @@ import * as qrgen from 'qrcode-generator';
     console.log('loading model');
     const loader = new GLTFLoader().setPath('src/assets/models/');
     loader.load(`${gift}/${gift}.gltf`, loadedModel);
-    
   };
 
   const loadedModel = gltf => {

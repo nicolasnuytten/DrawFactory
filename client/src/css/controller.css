@@ -8,6 +8,19 @@ html {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+}
+
+.correct {
+  position: absolute;
+  background-color: #007049;
+  z-index: 20;
+  width: 100%;
+  height: 100%;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .message-container {
@@ -56,17 +69,18 @@ html {
   position: relative;
 }
 
-.correct {
-  color: #007049;
+.correct-content {
+  content: url('../assets/images/checkmark.svg');
+  width: 15rem;
+  height: 15rem;
+  animation: scale-up-center .8s cubic-bezier(.39, .57, .56, 1) both;
 }
 
-.correct::before {
-  content: url('../assets/images/checkmark.svg');
-  width: 4rem;
-  height: 4rem;
-  position: absolute;
-  left: -6rem;
-  animation: scale-up-center .8s cubic-bezier(.39, .57, .56, 1) both;
+.correct-text {
+  font-size: 4rem;
+  font-weight: 700;
+  color: white;
+  font-family: Roboto, sans-serif;
 }
 
 @keyframes scale-up-center {
