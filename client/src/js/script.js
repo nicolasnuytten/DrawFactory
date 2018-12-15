@@ -31,8 +31,9 @@ import * as qrgen from 'qrcode-generator';
 
   const connect = () => {
     // socket = io.connect('https://io-server-nxqgfvvqpl.now.sh');
-    socket = io.connect('https://io-server-nfmgfiicut.now.sh');
+    // socket = io.connect('https://io-server-nfmgfiicut.now.sh');
     // socket = io.connect('http://localhost:8085');
+    socket = io.connect('https://io-server-gpyaypsyzu.now.sh');
 
     lookForPredictionInput();
   

@@ -45,6 +45,7 @@ const setupCanvas = () => {
   
   canvas = new fabric.Canvas('canvas');
   canvas.backgroundColor = '#ffffff';
+  canvas.isDrawingMode = 1;
   canvas.freeDrawingBrush.color = 'black';
   canvas.freeDrawingBrush.width = 15;
   canvas.renderAll();
@@ -223,7 +224,9 @@ const preprocess = imgData => {
 const connect = () => {
   // Met IP voor op mobile te testen!!!!!
   // socket = io.connect('https://io-server-nxqgfvvqpl.now.sh');
-  socket = io.connect('https://io-server-nfmgfiicut.now.sh');
+  // socket = io.connect('https://io-server-nfmgfiicut.now.sh');
+  socket = io.connect('https://io-server-gpyaypsyzu.now.sh');
+  
   
   // socket = io.connect('http://192.168.1.24.:8085');
   // socket = io.connect('http://localhost:8085');
@@ -247,6 +250,7 @@ const connect = () => {
   });
 
   socket.on(`correctDrawing`, data => {
+    console.log(`drawing is correct`);
     refreshCanvas();
   });
 };
