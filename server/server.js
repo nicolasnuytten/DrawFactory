@@ -29,34 +29,41 @@ io.on('connection', socket => {
     }
     // send an update to that particular socket
     socket.to(targetId).emit('update', data);
-
-
   });
 
-  socket.on('connectiontest', (targetId, data) => {
-    console.log(`In de connect ${targetId}`);
+
+  socket.on('controllerConnected', (targetId, data) => {
+    console.log(`id controller ${data}`);
     // if the target user does not exist, ignore it
     if (!users[targetId]) {
       console.log(`het zit hier`);
       return;
     }
     // send an update to that particular socket
-    socket.to(targetId).emit('connectiontest', data);
-
-
+    socket.to(targetId).emit('controllerConnected', data);
   });
 
-  socket.on('connectiontest2', (targetId, data) => {
-    console.log(`In de connect2222 ${targetId}`);
+
+  socket.on('clientConnected', (controllerId, data) => {
+    console.log(`de id van de controller ${controllerId}`);
     // if the target user does not exist, ignore it
-    if (!users[targetId]) {
+    if (!users[controllerId]) {
       console.log(`het zit hier`);
       return;
     }
     // send an update to that particular socket
-    socket.to(targetId).emit('connectiontest2', data);
+    socket.to(controllerId).emit('clientConnected', data);
+  });
 
-
+  socket.on('prediction', (clientId, data) => {
+    console.log(`de id van de controller ${data}`);
+    // if the target user does not exist, ignore it
+    if (!users[clientId]) {
+      console.log(`het zit hier`);
+      return;
+    }
+    // send an update to that particular socket
+    socket.to(clientId).emit('prediction', data);
   });
 
   socket.on('move', (targetId, data) => {
@@ -68,6 +75,14 @@ io.on('connection', socket => {
     console.log(`In de move ${targetId}`);
     socket.to(targetId).emit('move', data);
   });
+
+
+  socket.on(`drawingCorrect`, (targetId, data) => {
+    if (!users[targetId]) {
+      return;
+    }
+    socket.to(targetId).emit(`drawingCorrect`, data);
+  })
 
   socket.on('reply', (targetId, data) => {
     // if the target user does not exist, ignore it
@@ -88,12 +103,12 @@ io.on('connection', socket => {
 server.listen(port, () => {
   console.log(`App listening on port ${port}!`);
 
-  require('./get-ip-addresses')().then(ipAddresses => {
-    if (ipAddresses.en0) {
-      connectionUrl = `http://${ipAddresses.en0[0]}:8080`;
-    } else {
-      connectionUrl = `http://localhost:${port}`;
-    }
-  });
+  // require('./get-ip-addresses')().then(ipAddresses => {
+  //   if (ipAddresses.en0) {
+  //     connectionUrl = `http://${ipAddresses.en0[0]}:8080`;
+  //   } else {
+  //     connectionUrl = `http://localhost:${port}`;
+  //   }
+  // });
 });
 
