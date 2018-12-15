@@ -5,7 +5,6 @@ baseball_bat
 basketball
 bicycle
 book
-camera
 cat
 cup
 donut
@@ -13,11 +12,7 @@ hat
 headphones
 laptop
 lollipop
-microphone
 radio
 rifle
-shorts
-suitcase
 sword
 tennis_racquet
-tent

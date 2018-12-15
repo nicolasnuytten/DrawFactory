@@ -132,7 +132,6 @@ import * as qrgen from 'qrcode-generator';
     getInputData = false;
     console.log(`The drawing was right and now we can render the gift`);
     socket.emit(`correctDrawing`, controllerId, `correctDrawing`);
-    makeGiftCard();
     loadAssets(gift);
   };
 
@@ -151,9 +150,8 @@ import * as qrgen from 'qrcode-generator';
     gltf.scene.rotation.y = gltf.parser.json.extra.rotationY;
     gltf.scene.rotation.z = gltf.parser.json.extra.rotationZ;
 
-    // const value = Math.random() * ((WIDTH / 2) - (- WIDTH / 2)) + (- WIDTH / 2); 
-    console.log(WIDTH);
-    const value = (((Math.random() - .5) * 2) * WIDTH / 2);
+    // const value = Math.random() * ((WIDTH / 2) - (- WIDTH / 2)) + (- WIDTH / 2); r
+    const value = ((Math.random() - .5) * WIDTH / 2);
     console.log(value);
     gltf.scene.position.z = - 200;
     gltf.scene.position.x = value;
@@ -161,6 +159,7 @@ import * as qrgen from 'qrcode-generator';
     scene.add(gltf.scene);
 
     gifts.push(gltf);
+    makeGiftCard();
     // console.log(gifts);
   };
 
