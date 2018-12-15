@@ -257,7 +257,7 @@ const connect = () => {
     firstCorrectDrawing = true;
     canvas.isDrawingMode = 0;
     popUp.style.display = 'flex';
-    informationText.textContent = `correct`;
+    informationText.textContent = ``;
     const audio = new Audio('../src/assets/sounds/correct.mp3');
     audio.loop = false;
     audio.play();

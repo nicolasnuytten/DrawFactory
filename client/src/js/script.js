@@ -40,14 +40,16 @@ import * as qrgen from 'qrcode-generator';
     socket.on(`connectionUrl`, connectionUrl => {
     //   createQRCode();  
       // console.log(connectionUrl);
-      console.log(`hello socket: u IP adress:8080/controller.html?id=${socket.id}`);
+      // console.log(`hello socket: u IP adress:8080/controller.html?id=${socket.id}`);
       const qrcode = qrgen(5, `L`);
-      qrcode.addData(`192.168.1.24.:8080/controller.html?id=${socket.id}`);
+      qrcode.addData(`192.168.0.233:8080/controller.html?id=${socket.id}`);
 
       qrcode.make();
       document.querySelector(`.qrcode`).innerHTML = qrcode.createImgTag();
+      
+      document.querySelector('.link').href = `http://192.168.0.233:8080/controller.html?id=${socket.id}`;
 
-      console.log(qrcode);
+      // console.log(qrcode);
       // console.log(`hello socket: ${connectionUrl}/controller.html?id=${socket.id}`);
     });
 
@@ -108,7 +110,6 @@ import * as qrgen from 'qrcode-generator';
     makeGiftCard();
   };
 
-
   const makeGiftCard = () => {
     const toDrawPrev = toDraw;
     toDraw = wishlistData[Math.floor(Math.random() * wishlistData.length)];
@@ -150,10 +151,9 @@ import * as qrgen from 'qrcode-generator';
     gltf.scene.rotation.z = gltf.parser.json.extra.rotationZ;
 
     // const value = Math.random() * ((WIDTH / 2) - (- WIDTH / 2)) + (- WIDTH / 2); r
-    const value = ((Math.random() - .5) * WIDTH / 2);
-    console.log(value);
+    // const value = ((Math.random() - .5) * WIDTH / 2);
     gltf.scene.position.z = - 200;
-    gltf.scene.position.x = value;
+    gltf.scene.position.x = - 200;
     gltf.scene.position.y = 300;
     scene.add(gltf.scene);
 
@@ -189,7 +189,7 @@ import * as qrgen from 'qrcode-generator';
 
     scene = new THREE.Scene();
     
-    scene.fog = new THREE.Fog(0xf7d9aa, 100, 950);
+    // scene.fog = new THREE.Fog(0xf7d9aa, 100, 950);
     
     aspectRatio = WIDTH / HEIGHT;
     fieldOfView = 60;
@@ -213,15 +213,29 @@ import * as qrgen from 'qrcode-generator';
     container.appendChild(renderer.domElement);
 
     window.addEventListener('resize', handleWindowResize, false);
+
+    const loader = new GLTFLoader().setPath('src/assets/models/');
+    loader.load(`scene.gltf`, function (gltf) {
+      gltf.scene.scale.set(1, 1, 1);
+      gltf.scene.position.x = - 100;
+      gltf.scene.position.y = 150;
+      gltf.scene.position.z = - 500;
+      gltf.scene.rotation.x = 0;
+
+      scene.add(gltf.scene);
+      console.log('loaded scene');
+      console.log(gltf);
+    });
   };
 
-  function handleWindowResize() {
+
+  const handleWindowResize = () => {
     HEIGHT = window.innerHeight;
     WIDTH = window.innerWidth;
     renderer.setSize(WIDTH, HEIGHT);
     camera.aspect = WIDTH / HEIGHT;
     camera.updateProjectionMatrix();
-  }
+  };
 
   const gravity = () => {
     if (gifts) {
@@ -229,7 +243,7 @@ import * as qrgen from 'qrcode-generator';
         // console.log(gift);
         if (gift.scene.position.y >= gift.parser.json.extra.ground) {
 
-          gift.scene.position.y --;
+          gift.scene.position.y -= 2;
         }
       });
     }
