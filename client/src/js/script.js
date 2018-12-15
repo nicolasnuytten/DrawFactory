@@ -16,7 +16,7 @@ import * as qrgen from 'qrcode-generator';
 
   let controllerId;
   let socket;
-  let gifts = [];
+  const gifts = [];
   // let qr;
 
 
