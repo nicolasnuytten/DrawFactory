@@ -151,9 +151,13 @@ import * as qrgen from 'qrcode-generator';
     gltf.scene.rotation.y = gltf.parser.json.extra.rotationY;
     gltf.scene.rotation.z = gltf.parser.json.extra.rotationZ;
 
+    // const value = Math.random() * ((WIDTH / 2) - (- WIDTH / 2)) + (- WIDTH / 2); 
+    console.log(WIDTH);
+    const value = (((Math.random() - .5) * 2) * WIDTH / 2);
+    console.log(value);
     gltf.scene.position.z = - 200;
-    gltf.scene.position.x = (Math.random() * 1000) - 500; 
-    gltf.scene.position.y = Math.random() * 500;
+    gltf.scene.position.x = value;
+    gltf.scene.position.y = 300;
     scene.add(gltf.scene);
 
     gifts.push(gltf);
