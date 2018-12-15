@@ -264,7 +264,7 @@
    "extra" : {
          "ground" : -100,
          "scale" : 0.8,
-         "rotationX" : 50,
+         "rotationX" : 90,
          "rotationY" : 0,
          "rotationZ" : 0
    }

@@ -406,7 +406,7 @@
          "ground" : -100,
          "scale" : 0.3,
          "rotationX" : 0,
-         "rotationY" : 0,
+         "rotationY" : 90,
          "rotationZ" : 0
    }
 }
