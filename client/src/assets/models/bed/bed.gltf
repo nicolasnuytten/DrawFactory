@@ -5,78 +5,78 @@
 			"bufferView" : 2,
 			"byteOffset" : 0,
 			"componentType" : 5126,
-			"count" : 1778,
+			"count" : 944,
 			"max" : 
 			[
 				1,
-				0.835527777671814,
-				0.7893137335777283,
+				1,
+				1,
 				1
 			],
 			"min" : 
 			[
-				5.692175545846112e-05,
-				0.08919350802898407,
-				0.03994716703891754,
+				1,
+				0.09387587010860443,
+				0.01188133470714092,
 				1
 			],
-			"name" : "accessor_color_m0-PolyPaper8_-217886",
+			"name" : "accessor_color_m0-PolyPaper14_-151456",
 			"type" : "VEC4"
 		},
 		{
 			"bufferView" : 0,
 			"byteOffset" : 0,
 			"componentType" : 5123,
-			"count" : 2598,
+			"count" : 1248,
 			"max" : 
 			[
-				1777
+				943
 			],
 			"min" : 
 			[
 				0
 			],
-			"name" : "accessor_indices_0_m0-PolyPaper8_-217886",
+			"name" : "accessor_indices_0_m0-PolyPaper14_-151456",
 			"type" : "SCALAR"
 		},
 		{
 			"bufferView" : 1,
-			"byteOffset" : 21336,
+			"byteOffset" : 11328,
 			"componentType" : 5126,
-			"count" : 1778,
+			"count" : 944,
 			"max" : 
 			[
-				0.9990685,
-				0.9999999000000001,
-				0.9999706
+				1,
+				1,
+				1
 			],
 			"min" : 
 			[
-				-0.9998505,
-				-0.9999939,
-				-0.9994867
+				-1,
+				-1,
+				-1
 			],
-			"name" : "accessor_normal_m0-PolyPaper8_-217886",
+			"name" : "accessor_normal_m0-PolyPaper14_-151456",
 			"type" : "VEC3"
 		},
 		{
 			"bufferView" : 1,
 			"byteOffset" : 0,
 			"componentType" : 5126,
-			"count" : 1778,
+			"count" : 944,
 			"max" : 
 			[
-				0.08916,
-				2.075727,
-				-0.190306
+				2.113978,
+				1.320316,
+				-1.089174
 			],
 			"min" : 
 			[
-				-0.6805426,
-				1.315738,
-				-0.762496
+				1.656046,
+				1.114673,
+				-1.350231
 			],
-			"name" : "accessor_position_m0-PolyPaper8_-217886",
+			"name" : "accessor_position_m0-PolyPaper14_-151456",
 			"type" : "VEC3"
 		}
 	],
@@ -90,23 +90,23 @@
 	[
 		{
 			"buffer" : 0,
-			"byteLength" : 5196,
+			"byteLength" : 2496,
 			"byteOffset" : 0,
 			"name" : "ushortBufferView",
 			"target" : 34963
 		},
 		{
 			"buffer" : 0,
-			"byteLength" : 42672,
-			"byteOffset" : 5196,
+			"byteLength" : 22656,
+			"byteOffset" : 2496,
 			"byteStride" : 12,
 			"name" : "vec3BufferView",
 			"target" : 34962
 		},
 		{
 			"buffer" : 0,
-			"byteLength" : 28448,
-			"byteOffset" : 47868,
+			"byteLength" : 15104,
+			"byteOffset" : 25152,
 			"byteStride" : 16,
 			"name" : "vec4BufferView",
 			"target" : 34962
@@ -115,9 +115,9 @@
 	"buffers" : 
 	[
 		{
-			"byteLength" : 76316,
+			"byteLength" : 40256,
 			"name" : "model",
-			"uri" : "shorts/shorts.bin"
+			"uri" : "bed/bed.bin"
 		}
 	],
 	"materials" : 
@@ -177,7 +177,7 @@
 	"meshes" : 
 	[
 		{
-			"name" : "mesh_m0-PolyPaper8_-217886",
+			"name" : "mesh_m0-PolyPaper14_-151456",
 			"primitives" : 
 			[
 				{
@@ -217,7 +217,7 @@
 				1
 			],
 			"mesh" : 0,
-			"name" : "node_MeshObject-1492845568-PolyPaper8"
+			"name" : "node_MeshObject447460096-PolyPaper14"
 		}
 	],
 	"scene" : 0,
@@ -234,7 +234,7 @@
 	],
    "extra" : {
          "ground" : -100,
-         "scale" : 1,
+         "scale" : 300,
          "rotationX" : 0,
          "rotationY" : 0,
          "rotationZ" : 0
