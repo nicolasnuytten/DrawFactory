@@ -256,10 +256,12 @@
       }
    ],
    "extra" : {
-         "ground" : -100,
+         "positionX" : -300,
+         "positionY" : 60,
+         "positionZ" : - 290,
          "scale" : 5,
-         "rotationX" : 0,
+         "rotationX" : -25,
          "rotationY" : 0,
-         "rotationZ" : 0
+         "rotationZ" : 30
    }
 }

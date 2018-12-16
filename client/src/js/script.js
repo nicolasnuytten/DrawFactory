@@ -164,11 +164,10 @@ const random = require('random-name');
     gltf.scene.rotation.y = gltf.parser.json.extra.rotationY;
     gltf.scene.rotation.z = gltf.parser.json.extra.rotationZ;
 
-    // const value = Math.random() * ((WIDTH / 2) - (- WIDTH / 2)) + (- WIDTH / 2); r
-    // const value = ((Math.random() - .5) * WIDTH / 2);
-    gltf.scene.position.z = - 290;
-    gltf.scene.position.x = - 300;
-    gltf.scene.position.y = 60;
+    gltf.scene.position.x = gltf.parser.json.extra.positionX;
+    gltf.scene.position.y = gltf.parser.json.extra.positionY;
+    gltf.scene.position.z = gltf.parser.json.extra.positionZ;
+
     scene.add(gltf.scene);
 
     gifts.push(gltf);

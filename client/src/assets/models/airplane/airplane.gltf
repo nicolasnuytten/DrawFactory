@@ -207,8 +207,9 @@
   ],
    "extra" : {
          "positionX" : -300,
-         "positionY" : 60,
-         "scale" : 50,
+         "positionY" : 80,
+         "positionZ" : - 290,
+         "scale" : 40,
          "rotationX" : 0,
          "rotationY" : 0,
          "rotationZ" : 0
