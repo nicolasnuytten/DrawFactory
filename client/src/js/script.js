@@ -154,9 +154,9 @@ import * as qrgen from 'qrcode-generator';
 
     // const value = Math.random() * ((WIDTH / 2) - (- WIDTH / 2)) + (- WIDTH / 2); r
     // const value = ((Math.random() - .5) * WIDTH / 2);
-    gltf.scene.position.z = - 200;
-    gltf.scene.position.x = - 200;
-    gltf.scene.position.y = 300;
+    gltf.scene.position.z = - 290;
+    gltf.scene.position.x = - 300;
+    gltf.scene.position.y = 60;
     scene.add(gltf.scene);
 
     gifts.push(gltf);
@@ -165,9 +165,9 @@ import * as qrgen from 'qrcode-generator';
   };
 
   const createLight = () => {
-    hemisphereLight = new THREE.HemisphereLight(0xaaaaaa, 0x000000, .9);
+    hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x000000, 0.7);
     
-    shadowLight = new THREE.DirectionalLight(0xffffff, 0.9);
+    shadowLight = new THREE.DirectionalLight(0xffffff, 0.7);
     shadowLight.position.set(150, 350, 350);
 
     shadowLight.castShadow = true;
@@ -192,12 +192,14 @@ import * as qrgen from 'qrcode-generator';
     scene = new THREE.Scene();
     
     // scene.fog = new THREE.Fog(0xf7d9aa, 100, 950);
+    scene.background = new THREE.Color(0xa1c2ff);
     
     aspectRatio = WIDTH / HEIGHT;
     fieldOfView = 60;
     nPlane = 1;
     fPlane = 10000;
     camera = new THREE.PerspectiveCamera(fieldOfView, aspectRatio, nPlane, fPlane);
+    
 
     camera.position.x = 0;
     camera.position.y = 100;
@@ -219,9 +221,9 @@ import * as qrgen from 'qrcode-generator';
     const loader = new GLTFLoader().setPath('assets/models/');
     loader.load(`scene.gltf`, function (gltf) {
       gltf.scene.scale.set(1, 1, 1);
-      gltf.scene.position.x = - 100;
+      gltf.scene.position.x = - 50;
       gltf.scene.position.y = 150;
-      gltf.scene.position.z = - 500;
+      gltf.scene.position.z = - 520;
       gltf.scene.rotation.x = 0;
 
       scene.add(gltf.scene);
@@ -243,9 +245,9 @@ import * as qrgen from 'qrcode-generator';
     if (gifts) {
       gifts.forEach(gift => {
         // console.log(gift);
-        if (gift.scene.position.y >= gift.parser.json.extra.ground) {
+        if (gift.scene.position.x <= WIDTH / 2) {
 
-          gift.scene.position.y -= 2;
+          gift.scene.position.x += 2;
         }
       });
     }
