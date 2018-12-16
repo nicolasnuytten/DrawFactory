@@ -1,2 +1,3 @@
-tennis_racquet
-tent
+t-shirt
+rifle
+sword
