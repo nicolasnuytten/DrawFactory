@@ -39,6 +39,14 @@
     {
        "name": "Camera" 
     },
+    "cell_phone":
+    {
+       "name": "iPhone" 
+    },
+    "chair":
+    {
+       "name": "Chair" 
+    },
     "cup":
     {
        "name": "Coffee cup" 
@@ -47,6 +55,14 @@
     {
        "name": "Donut" 
     },
+    "eyeglasses":
+    {
+       "name": "Sunglasses" 
+    },
+    "frying_pan":
+    {
+       "name": "Frying pan" 
+    },
     "hat":
     {
        "name": "Hat" 
@@ -54,6 +70,10 @@
     "headphones":
     {
        "name": "Headphones" 
+    },
+    "helmet":
+    {
+       "name": "Football helmet" 
     },
     "laptop":
     {
@@ -70,6 +90,10 @@
     "pants":
     {
        "name": "Pants" 
+    },
+    "pencil":
+    {
+       "name": "Pencil" 
     },
     "radio":
     {
@@ -98,5 +122,13 @@
     "tent":
     {
        "name": "Tent" 
+    },
+    "umbrella":
+    {
+       "name": "Umbrella" 
+    },
+    "wristwatch":
+    {
+       "name": "Wrist watch" 
     }
 }

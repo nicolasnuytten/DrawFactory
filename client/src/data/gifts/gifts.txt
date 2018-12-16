@@ -8,14 +8,18 @@ bicycle
 book
 cat
 camera
+cell_phone
 cup
 donut
+eyeglasses
 hat
 headphones
+helmet
 laptop
 lollipop
 microphone
 pants
+pencil
 radio
 rifle
 suitcase
@@ -23,3 +27,5 @@ sword
 t-shirt
 tennis_racquet
 tent
+umbrella
+wristwatch
