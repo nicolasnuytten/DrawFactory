@@ -46,20 +46,31 @@ html {
   height: 100%;
 }
 
-.refresh-button-container {
-  width: 50vw;
-  height: 8vh;
-  background-color: white;
-  border-radius: 2rem;
-  margin-top: 3rem;
+.buttons-holder {
+  display: flex;
+  width: 90vw;
+  justify-content: space-between;
+  margin-top: 2.5rem;
 }
 
-.refresh-button {
+.button-container {
+  width: 42vw;
+  height: 8vh;
+  border-radius: 2rem;
+}
+
+.button-container__clear {
+  background-color: white;
+}
+
+.button {
   font-size: 2rem;
   font-weight: 700;
   width: 100%;
   height: 100%;
   font-family: Roboto, sans-serif;
+  background-color: white;
+  border-radius: 0;
 }
 
 .information-text {

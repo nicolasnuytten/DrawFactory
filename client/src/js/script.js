@@ -25,7 +25,6 @@ const random = require('random-name');
   const wishOnCard = document.querySelector('.wish');
   const nameWishlist = document.querySelector('.name');
 
-
   const init = () => {
     createScene();
     createLight();
@@ -33,12 +32,12 @@ const random = require('random-name');
     loop();
   };
 
-
   const connect = () => {
     // socket = io.connect('https://io-server-nxqgfvvqpl.now.sh');
     // socket = io.connect('https://io-server-nfmgfiicut.now.sh');
     // socket = io.connect('http://localhost:8085');
-    socket = io.connect('https://io-server-gpyaypsyzu.now.sh');
+    socket = io.connect('https://io-server-msgsftozvj.now.sh');
+
 
     lookForPredictionInput();
   
@@ -53,9 +52,6 @@ const random = require('random-name');
       document.querySelector(`.qrcode`).innerHTML = qrcode.createImgTag();
       
       document.querySelector('.link').href = `http://192.168.0.233:8080/controller.html?id=${socket.id}`;
-
-      // console.log(qrcode);
-      // console.log(`hello socket: ${connectionUrl}/controller.html?id=${socket.id}`);
     });
 
     socket.on(`controllerConnected`, data => {
@@ -66,15 +62,10 @@ const random = require('random-name');
       socket.emit(`clientConnected`, controllerId, 'client connected');
     });
   
-    socket.on(`update`, data => {
-      console.log(`data from socket: ${data}`);
-  
+    socket.on(`skip`, data => {
+      makeGiftCard();
     });
 
-    socket.on(`update`, data => {
-      console.log('de data', data);
-    });
-  
   };
   
   const loadDict = () => {

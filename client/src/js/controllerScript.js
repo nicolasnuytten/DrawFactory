@@ -28,7 +28,8 @@ const init = () => {
 
   setupCanvas();
   
-  document.querySelector(`.refresh-button`).addEventListener(`click`, refreshCanvas);
+  document.querySelector(`.button__clear`).addEventListener(`click`, refreshCanvas);
+  document.querySelector(`.button__skip`).addEventListener(`click`, requestNewWish);
 
   loadModel();
 };
@@ -83,6 +84,11 @@ const refreshCanvas = () => {
   coords = [];
   canvas.clear();
   canvas.backgroundColor = '#ffffff';
+};
+
+const requestNewWish = () => {
+  refreshCanvas();
+  socket.emit(`skip`, targetId, `new drawing`);
 };
 
 const loadModel = async () => {
@@ -228,10 +234,10 @@ const connect = () => {
   // Met IP voor op mobile te testen!!!!!
   // socket = io.connect('https://io-server-nxqgfvvqpl.now.sh');
   // socket = io.connect('https://io-server-nfmgfiicut.now.sh');
-  socket = io.connect('https://io-server-gpyaypsyzu.now.sh');
+  // socket = io.connect('https://io-server-gpyaypsyzu.now.sh');
   
   
-  // socket = io.connect('http://192.168.1.24.:8085');
+  socket = io.connect('https://io-server-msgsftozvj.now.sh');
   // socket = io.connect('http://localhost:8085');
   socket.on(`connectionUrl`, connectionUrl => {
     //   createQRCode();  
@@ -281,9 +287,8 @@ const setGiftToDraw = giftToDraw => {
   selectedGift = giftToDraw;
   if (firstCorrectDrawing === false) {
     canvas.isDrawingMode = 1;
-    informationText.textContent = `draw a: ${giftToDraw}`;
   }
- 
+  informationText.textContent = `draw a: ${giftToDraw}`;
 };
 
 init();
