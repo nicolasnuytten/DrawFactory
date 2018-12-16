@@ -69,7 +69,7 @@ const random = require('random-name');
   };
   
   const loadDict = () => {
-    const loc = 'data/gifts/testgifts.txt';
+    const loc = 'data/gifts/gifts.txt';
 
     console.log(loc);
     

@@ -10,8 +10,10 @@ cat
 camera
 cell_phone
 cup
+chair
 donut
 eyeglasses
+frying_pan
 hat
 headphones
 helmet
