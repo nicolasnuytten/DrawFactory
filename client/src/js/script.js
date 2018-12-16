@@ -11,6 +11,7 @@ const random = require('random-name');
     camera, fieldOfView, aspectRatio, nPlane, fPlane, renderer, container;
 
   let hemisphereLight, shadowLight;
+  let hemiLight, dirLight, hemiLightHelper, dirLightHeper;
   let wishlistData;
   let toDraw;
   let giftNames;
@@ -168,16 +169,16 @@ const random = require('random-name');
 
   const createLight = () => {
     hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x000000, 0.7);
-    
-    shadowLight = new THREE.DirectionalLight(0xffffff, 0.7);
-    shadowLight.position.set(150, 350, 350);
+
+    shadowLight = new THREE.DirectionalLight(0xffffff);
+    shadowLight.position.set(50, 500, 350);
 
     shadowLight.castShadow = true;
     shadowLight.shadow.camera.left = - 400;
     shadowLight.shadow.camera.right = 400;
     shadowLight.shadow.camera.top = 400;
     shadowLight.shadow.camera.bottom = - 400;
-    shadowLight.shadow.camera.near = 1;
+    shadowLight.shadow.camera.near = 10;
     shadowLight.shadow.camera.far = 1000;
     shadowLight.shadow.mapSize.width = 2048;
     shadowLight.shadow.mapSize.height = 2048;
@@ -193,19 +194,19 @@ const random = require('random-name');
 
     scene = new THREE.Scene();
     
-    // scene.fog = new THREE.Fog(0xf7d9aa, 100, 950);
-    scene.background = new THREE.Color(0xa1c2ff);
+    scene.background = new THREE.Color(0x45a5ff);
+    scene.fog = new THREE.Fog(scene.background, 300, 4000);
     
     aspectRatio = WIDTH / HEIGHT;
-    fieldOfView = 60;
+    fieldOfView = 50;
     nPlane = 1;
     fPlane = 10000;
     camera = new THREE.PerspectiveCamera(fieldOfView, aspectRatio, nPlane, fPlane);
     
 
     camera.position.x = 0;
-    camera.position.y = 100;
-    camera.position.z = 200;
+    camera.position.y = 80;
+    camera.position.z = 220;
 
     renderer = new THREE.WebGLRenderer({
       alpha: true,
@@ -223,10 +224,9 @@ const random = require('random-name');
     const loader = new GLTFLoader().setPath('assets/models/');
     loader.load(`scene.gltf`, function (gltf) {
       gltf.scene.scale.set(1, 1, 1);
-      gltf.scene.position.x = - 50;
-      gltf.scene.position.y = 150;
-      gltf.scene.position.z = - 520;
-      gltf.scene.rotation.x = 0;
+      gltf.scene.position.x = 0;
+      gltf.scene.position.y = 170;
+      gltf.scene.position.z = - 500;
 
       scene.add(gltf.scene);
       console.log('loaded scene');
