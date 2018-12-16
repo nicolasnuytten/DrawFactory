@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import GLTFLoader from 'three-gltf-loader';
 import io from 'socket.io-client';
 import * as qrgen from 'qrcode-generator';
+import { empty } from 'rxjs/Observer';
 const random = require('random-name');
 // import * as getIP from './utils/get-ip-addresses';
 
@@ -164,7 +165,6 @@ const random = require('random-name');
 
     gifts.push(gltf);
     makeGiftCard();
-    // console.log(gifts);
   };
 
   const createLight = () => {
@@ -245,12 +245,26 @@ const random = require('random-name');
 
   const gravity = () => {
     if (gifts) {
-      gifts.forEach(gift => {
+      gifts.forEach((gift, index) => {
         // console.log(gift);
         if (gift.scene.position.x <= WIDTH / 2) {
 
           gift.scene.position.x += 2;
+          
         }
+
+        if (gift.scene.position.x >= WIDTH / 2) {
+          while (gift.scene.children.length > 0) { 
+            gift.scene.remove(gift.scene.children[0]); 
+          }
+          scene.remove(gift.scene);
+          gifts.splice(index, 1);
+          gift.scene = null;
+        }
+
+        console.log(gift.scene);
+        console.log(index);
+        
       });
     }
   };
