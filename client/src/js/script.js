@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import GLTFLoader from 'three-gltf-loader';
 import io from 'socket.io-client';
 import * as qrgen from 'qrcode-generator';
+const random = require('random-name');
 // import * as getIP from './utils/get-ip-addresses';
 
 {
@@ -12,12 +13,17 @@ import * as qrgen from 'qrcode-generator';
   let hemisphereLight, shadowLight;
   let wishlistData;
   let toDraw;
+  let giftNames;
   let getInputData = false;
 
   let controllerId;
   let socket;
   const gifts = [];
-  // let qr;
+ 
+  const wishlistContainer = document.querySelector('.wishlist');
+  const wishlistCard = document.querySelector('.wishlist-container');
+  const wishOnCard = document.querySelector('.wish');
+  const nameWishlist = document.querySelector('.name');
 
 
   const init = () => {
@@ -25,7 +31,6 @@ import * as qrgen from 'qrcode-generator';
     createLight();
     loadDict();
     loop();
-
   };
 
 
@@ -72,14 +77,8 @@ import * as qrgen from 'qrcode-generator';
   
   };
   
-  // const subscrideOnUpdate = () => {
-  //   socket.on(`update`, data => {
-  //     console.log('de data', data);
-  //   });
-  // };
-
   const loadDict = () => {
-    const loc = 'gifts.txt';
+    const loc = 'data/gifts/gifts.txt';
 
     console.log(loc);
     
@@ -94,6 +93,13 @@ import * as qrgen from 'qrcode-generator';
         alert('sorry, there are no results for your search');
       });
 
+    fetch('data/gifts/gifts.json')
+      .then(r => r.json())
+      .then(
+        data => giftNames = data
+      );
+
+    console.log(giftNames);
     console.log('ready to go');
   };
 
@@ -118,7 +124,13 @@ import * as qrgen from 'qrcode-generator';
     if (toDrawPrev === toDraw) {
       toDraw = wishlistData[Math.floor(Math.random() * wishlistData.length)];
     }
-    socket.emit(`giftToDraw`, controllerId, toDraw);
+    const WishedGift = giftNames[toDraw].name;
+    wishlistContainer.style.display = 'flex';
+    wishlistCard.classList.add('show');
+    wishOnCard.textContent = WishedGift;
+    nameWishlist.textContent = `${random.first()}'s Wishlist`;
+
+    socket.emit(`giftToDraw`, controllerId, WishedGift);
     getInputData = true;
     console.log(toDraw);
   };

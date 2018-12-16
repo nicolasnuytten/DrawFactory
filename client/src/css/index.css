@@ -59,3 +59,51 @@
   width: 100%;
   height: 100%;
 }
+
+.wishlist {
+  position: absolute;
+  z-index: 6;
+  width: 100%;
+  height: 100%;
+  display: none;
+  justify-content: center;
+}
+
+.wishlist-container {
+  width: 22rem;
+  height: 10rem;
+  margin-top: 1.5rem;
+  background-color: white;
+  border-radius: 2rem;
+  text-align: center;
+  display: none;
+}
+
+.show {
+  animation: slide-bottom .5s cubic-bezier(.25, .46, .45, .94) both;
+  display: block;
+}
+
+@keyframes slide-bottom {
+
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(.3rem);
+  }
+}
+
+.wish {
+  font-size: 2rem;
+  margin-top: 2.2rem;
+  font-family: Roboto, sans-serif;
+}
+
+.name {
+  font-size: 2rem;
+  margin-top: 1.5rem;
+  font-weight: bold;
+  font-family: Roboto, sans-serif;
+}

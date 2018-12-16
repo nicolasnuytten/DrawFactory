@@ -1,0 +1,102 @@
+{
+    "airplane":
+    {
+       "name": "Airplane" 
+    },
+    "alarm_clock":
+    {
+       "name": "Alarm clock" 
+    },
+    "baseball":
+    {
+       "name": "Baseball" 
+    },
+    "baseball_bat":
+    {
+       "name": "Baseball bat" 
+    },
+    "basketball":
+    {
+       "name": "Basketball" 
+    },
+    "bed":
+    {
+       "name": "Bed" 
+    },
+    "bicycle":
+    {
+       "name": "Bicycle" 
+    },
+    "book":
+    {
+       "name": "Book" 
+    },
+    "cat":
+    {
+       "name": "Cat" 
+    },
+    "camera":
+    {
+       "name": "Camera" 
+    },
+    "cup":
+    {
+       "name": "Coffee cup" 
+    },
+    "donut":
+    {
+       "name": "Donut" 
+    },
+    "hat":
+    {
+       "name": "Hat" 
+    },
+    "headphones":
+    {
+       "name": "Headphones" 
+    },
+    "laptop":
+    {
+       "name": "Laptop" 
+    },
+    "lollipop":
+    {
+       "name": "Lollipop" 
+    },
+    "microphone":
+    {
+       "name": "Karaoke microphone" 
+    },
+    "pants":
+    {
+       "name": "Pants" 
+    },
+    "radio":
+    {
+       "name": "Radio" 
+    },
+    "rifle":
+    {
+       "name": "Water gun" 
+    },
+    "suitcase":
+    {
+       "name": "Suitcase" 
+    },
+    "sword":
+    {
+       "name": "Toy sword" 
+    },
+    "t-shirt":
+    {
+       "name": "T-shirt" 
+    },
+    "tennis_racquet":
+    {
+       "name": "Tennis racquet" 
+    },
+    "tent":
+    {
+       "name": "Tent" 
+    }
+}

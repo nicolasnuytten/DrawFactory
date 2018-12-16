@@ -121,7 +121,7 @@ module.exports = (env, {mode}) => {
       }),
       new CopyWebpackPlugin([
         {from: './src/model2', to: 'model2'},
-        {from: './src/gifts.txt', to: ''},
+        {from: './src/data', to: 'data'},
         {from: './src/mini_classes.txt', to: ''},
         {from: './src/assets/audio', to: 'assets/audio'},
         {from: './src/assets/models', to: 'assets/models'},
