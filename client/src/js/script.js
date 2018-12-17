@@ -39,12 +39,12 @@ const random = require('random-name');
     socket.on(`connectionUrl`, () => {
  
       const qrcode = qrgen(5, `L`);
-      qrcode.addData(`192.168.0.233:8080/controller.html?id=${socket.id}`);
+      qrcode.addData(`http://student.howest.be/nicolas.nuytten/20182019/EXW/controller.html?id=${socket.id}`);
 
       qrcode.make();
       document.querySelector(`.qrcode`).innerHTML = qrcode.createImgTag();
 
-      document.querySelector('.link').href = `http://192.168.0.233:8080/controller.html?id=${socket.id}`;
+      document.querySelector('.link').href = `http://student.howest.be/nicolas.nuytten/20182019/EXW/controller.html?id=${socket.id}`;
     });
 
     socket.on(`controllerConnected`, data => {
