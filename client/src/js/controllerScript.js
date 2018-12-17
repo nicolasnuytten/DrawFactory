@@ -10,8 +10,7 @@ const classNames = [];
 let canvas;
 let firstCorrectDrawing = false;
 let mousePressed = false;
-let modelLoaded = false;
-let numChannels;
+// let numChannels;
 let selectedGift;
 
 const informationText = document.querySelector('.information-text');
@@ -47,24 +46,21 @@ const setupCanvas = () => {
     canvasSelection.height = Math.round(viewportHeight * 50 / 100);
   }
   
-  canvas = new fabric.Canvas('canvas');
+  canvas = new fabric.Canvas('canvas'); // eslint-disable-line
   canvas.backgroundColor = '#ffffff';
   canvas.isDrawingMode = 0;
   canvas.freeDrawingBrush.color = 'black';
   canvas.freeDrawingBrush.width = 15;
   canvas.renderAll();
   //setup listeners
-  canvas.on('mouse:up', e => {
+  canvas.on('mouse:up', () => {
     getFrame();
     mousePressed = false;
-    console.log(`up`);
   });
-  canvas.on('mouse:down', e => {
+  canvas.on('mouse:down', () => {
     mousePressed = true;
-    console.log(`down`);
   });
   canvas.on('mouse:move', e => {
-    console.log(`beweging`);
     recordCoor(e);
   });
 
@@ -108,7 +104,7 @@ const loadDict = async () => {
       success(response);
     })
     .catch(err => {
-      console.log('u');
+      console.log(err);
       alert('sorry, there are no results for your search');
     });
 
@@ -118,13 +114,8 @@ const loadDict = async () => {
 const getFrame = () => {
   if (coords.length >= 2) {
     const imgData = getImageData();
-
-    console.log('Data', imgData);
-
     const pred = model.predict(preprocess(imgData)).dataSync();
-
     const indices = findIndicesOfMax(pred, 7);
-    const probs = findTopValues(pred, 7);
     const names = getClassNames(indices);
     console.log(names);
 
@@ -143,7 +134,6 @@ const success = data => {
     const symbol = lst[i];
     classNames[i] = symbol;
   }
-  modelLoaded = true;
 };
 
 const getMinBox = () => {
@@ -156,19 +146,19 @@ const getMinBox = () => {
   });
 
   //find top left and bottom right corners 
-  const min_coords = {
+  const minCoords = {
     x: Math.min.apply(null, coorX),
     y: Math.min.apply(null, coorY)
   };
-  const max_coords = {
+  const maxCoords = {
     x: Math.max.apply(null, coorX),
     y: Math.max.apply(null, coorY)
   };
 
   //return as struct 
   return {
-    min: min_coords,
-    max: max_coords
+    min: minCoords,
+    max: maxCoords
   };
 
 };
@@ -196,14 +186,14 @@ const findIndicesOfMax = (inp, count) => {
   return output;
 };
 
-const findTopValues = (inp, count) => {
-  const output = [];
-  const indices = findIndicesOfMax(inp, count);
-  // show 5 greatest scores
-  for (let i = 0;i < indices.length;i ++)
-    output[i] = inp[indices[i]];
-  return output;
-};
+// const findTopValues = (inp, count) => {
+//   const output = [];
+//   const indices = findIndicesOfMax(inp, count);
+//   // show 5 greatest scores
+//   for (let i = 0;i < indices.length;i ++)
+//     output[i] = inp[indices[i]];
+//   return output;
+// };
 
 const getClassNames = indices => {
   const output = [];
@@ -215,7 +205,7 @@ const getClassNames = indices => {
 const preprocess = imgData => {
   return tf.tidy(() => {
     //convert to a tensor 
-    const tensor = tf.fromPixels(imgData, numChannels = 1);
+    const tensor = tf.fromPixels(imgData, 1);
       
     //resize 
     const resized = tf.image.resizeBilinear(tensor, [28, 28]).toFloat();
@@ -239,18 +229,14 @@ const connect = () => {
   
   socket = io.connect('https://io-server-msgsftozvj.now.sh');
   // socket = io.connect('http://localhost:8085');
-  socket.on(`connectionUrl`, connectionUrl => {
+  socket.on(`connectionUrl`, () => {
     //   createQRCode();  
     console.log(`this is the socket id ${socket.id}`);
     socket.emit(`controllerConnected`, targetId, socket.id);
   });
 
-  socket.on(`clientConnected`, data => {
+  socket.on(`clientConnected`, () => {
     console.log(`client is connected`);
-  });
-
-  socket.on(`update`, data => {
-    console.log(`data from socket: ${data}`);
   });
 
   socket.on(`giftToDraw`, data => {
@@ -258,7 +244,7 @@ const connect = () => {
     setGiftToDraw(data);
   });
 
-  socket.on(`correctDrawing`, data => {
+  socket.on(`correctDrawing`, () => {
     console.log(`drawing is correct`);
     firstCorrectDrawing = true;
     canvas.isDrawingMode = 0;
@@ -277,7 +263,7 @@ const connect = () => {
 };
 
 const getUrlParameter = name => {
-  name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+  name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]'); // eslint-disable-line
   const regex = new RegExp(`[\\?&]${  name  }=([^&#]*)`);
   const results = regex.exec(location.search);
   return results === null ? false : decodeURIComponent(results[1].replace(/\+/g, ' '));

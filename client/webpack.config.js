@@ -3,7 +3,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const postcssPresetEnv = require('postcss-preset-env');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const webpack = require(`webpack`);
-const CriticalPlugin = require('webpack-plugin-critical').CriticalPlugin;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 

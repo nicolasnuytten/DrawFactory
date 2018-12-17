@@ -3,16 +3,13 @@ import * as THREE from 'three';
 import GLTFLoader from 'three-gltf-loader';
 import io from 'socket.io-client';
 import * as qrgen from 'qrcode-generator';
-import { empty } from 'rxjs/Observer';
 const random = require('random-name');
-// import * as getIP from './utils/get-ip-addresses';
 
 {
   let scene, WIDTH, HEIGHT,
     camera, fieldOfView, aspectRatio, nPlane, fPlane, renderer, container;
 
   let hemisphereLight, shadowLight;
-  let hemiLight, dirLight, hemiLightHelper, dirLightHeper;
   let wishlistData;
   let toDraw;
   let giftNames;
@@ -35,24 +32,18 @@ const random = require('random-name');
   };
 
   const connect = () => {
-    // socket = io.connect('https://io-server-nxqgfvvqpl.now.sh');
-    // socket = io.connect('https://io-server-nfmgfiicut.now.sh');
-    // socket = io.connect('http://localhost:8085');
     socket = io.connect('https://io-server-msgsftozvj.now.sh');
-
 
     lookForPredictionInput();
   
-    socket.on(`connectionUrl`, connectionUrl => {
-    //   createQRCode();  
-      // console.log(connectionUrl);
-      // console.log(`hello socket: u IP adress:8080/controller.html?id=${socket.id}`);
+    socket.on(`connectionUrl`, () => {
+ 
       const qrcode = qrgen(5, `L`);
       qrcode.addData(`192.168.0.233:8080/controller.html?id=${socket.id}`);
 
       qrcode.make();
       document.querySelector(`.qrcode`).innerHTML = qrcode.createImgTag();
-      
+
       document.querySelector('.link').href = `http://192.168.0.233:8080/controller.html?id=${socket.id}`;
     });
 
@@ -64,7 +55,7 @@ const random = require('random-name');
       socket.emit(`clientConnected`, controllerId, 'client connected');
     });
   
-    socket.on(`skip`, data => {
+    socket.on(`skip`, () => {
       makeGiftCard();
     });
 
@@ -246,11 +237,8 @@ const random = require('random-name');
   const gravity = () => {
     if (gifts) {
       gifts.forEach((gift, index) => {
-        // console.log(gift);
         if (gift.scene.position.x <= WIDTH / 2) {
-
           gift.scene.position.x += 2;
-          
         }
 
         if (gift.scene.position.x >= WIDTH / 2) {
@@ -260,11 +248,7 @@ const random = require('random-name');
           scene.remove(gift.scene);
           gifts.splice(index, 1);
           gift.scene = null;
-        }
-
-        console.log(gift.scene);
-        console.log(index);
-        
+        }     
       });
     }
   };
